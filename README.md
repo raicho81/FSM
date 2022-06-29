@@ -10,4 +10,6 @@ Downloads:
   
   Sqeak: https://squeak.org/
   
+  NewspeaK: https://newspeaklanguage.org/
+  
   https://rmod-files.lille.inria.fr/Team/Texts/Papers/Bera16aPracticalValidation-JOT.pdf
