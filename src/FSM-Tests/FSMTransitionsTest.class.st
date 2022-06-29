@@ -22,5 +22,9 @@ FSMTransitionsTest >> testInitializationIsOk [
 	fsmtrans add: t1.
 	fsmtrans add: t2.
 	self assert: (fsmtrans at: t1 key) equals: t1 value.
-	self assert: (fsmtrans at: t2 key) equals: t2 value
+	self assert: (fsmtrans at: t2 key) equals: t2 value.
+	fsmtrans
+		removeKey: t1 key;
+		removeKey: t2 key.
+	self assert: fsmtrans isEmpty
 ]
