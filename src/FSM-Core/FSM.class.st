@@ -77,6 +77,23 @@ FSM >> endstates: aSet [
 	endstates := aSet
 ]
 
+{ #category : #compute }
+FSM >> eval: aFSMInputSymbol [
+
+	self validateParams.
+]
+
+{ #category : #compute }
+FSM >> evalInpSymb: aFSMInputSymbol [
+
+	| a |
+	self validateParams.
+
+	a := Association
+		     key: aFSMInputSymbol mnemonic
+		      value: curstate mnemonic
+]
+
 { #category : #initialization }
 FSM >> initialize [
 
@@ -116,6 +133,12 @@ FSM >> resetFSM [
 	curstate := startsymbol.
 ]
 
+{ #category : #run }
+FSM >> runWithArray: aCollection [
+
+	aCollection do: [ :inputsymb | self evalInpSymb inputsymb ]
+]
+
 { #category : #accessing }
 FSM >> startstate [
 	^ startsymbol
@@ -130,4 +153,23 @@ FSM >> transitions [
 FSM >> transitions: aSet [
 
 	transitions := aSet
+]
+
+{ #category : #initialization }
+FSM >> validateParams [
+
+	endstates size <= 0 ifTrue: [ 
+		self error:
+			'Empty end/final tsates set. No need to run infinitely right ;) Aborting ...'.
+	startsymbol = FSMState new ifFalse:
+		self error:
+			'Wrong start state. Shuld be "S0". FSM wasnt reset? Aborting ...' ].
+
+	(inputalphabet size <= 0)
+		self error:
+			'Empty inputalphabet set. No need to run infinitely right ;) Aborting ...'.
+		
+		(inputalphabet size <= 0)
+		self error:
+			'Empty inputalphabet set. No need to run infinitely right ;) Aborting ...'.
 ]
