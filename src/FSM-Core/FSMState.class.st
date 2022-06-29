@@ -27,12 +27,6 @@ FSMState >> = aState [
 ^ self mnemonic = aState mnemonic and: self symbolvalue = aState symbolvalue. 
 ]
 
-{ #category : #comparing }
-FSMState >> hash [ 
-	self identityHash
-	
-]
-
 { #category : #initialization }
 FSMState >> initialize [
 
