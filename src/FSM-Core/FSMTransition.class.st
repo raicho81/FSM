@@ -11,11 +11,11 @@ Class {
 	#category : #'FSM-Core'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 FSMTransition class >> withState: aState withInputSymbol: aInputSymbol withNewState: aNewState [
 
 	| t |
-	t := FSMTransition new.
+	t := self new.
 	t key: aState -> aInputSymbol.
 	t value: aNewState.
 	^ t
