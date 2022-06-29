@@ -6,5 +6,7 @@ Let the Source and The Force be With You :D
 
 Downloads:
   Pharo: https://pharo.org/
+  
   Sqeak: https://squeak.org/
+  
   https://rmod-files.lille.inria.fr/Team/Texts/Papers/Bera16aPracticalValidation-JOT.pdf
