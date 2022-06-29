@@ -6,3 +6,9 @@ Class {
 	#superclass : #Set,
 	#category : #'FSM-Core'
 }
+
+{ #category : #initialization }
+FSMOutputAlphabet >> initialize [
+
+	super initialize.
+]
