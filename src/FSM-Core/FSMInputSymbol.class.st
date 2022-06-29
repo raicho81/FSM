@@ -55,11 +55,13 @@ FSMInputSymbol >> mnemonic: aString [
 FSMInputSymbol >> printOn: aStream [
 
 	aStream
+		cr;
 		nextPutAll: '(';
 		nextPutAll: self mnemonic asString;
 		nextPutAll: '/';
 		nextPutAll: self symbolvalue asString;
-		nextPutAll: ')'
+		nextPutAll: ')';
+		cr
 ]
 
 { #category : #accessing }

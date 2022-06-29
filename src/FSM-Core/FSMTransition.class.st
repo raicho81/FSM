@@ -33,6 +33,19 @@ FSMTransition >> mnemonic [
 	^ mnemonic
 ]
 
+{ #category : #printing }
+FSMTransition >> printOn: aStream [
+
+	aStream
+		cr;
+		nextPutAll: '|';
+		nextPutAll: self mnemonic asString;
+		nextPutAll: '->';
+		nextPutAll: self symbolvalue asString;
+		nextPutAll: '|)|';
+		cr
+]
+
 { #category : #accessing }
 FSMTransition >> symbolvalue [
 	^ symbolvalue

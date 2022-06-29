@@ -38,6 +38,21 @@ FSMState >> = aState [
 ^ self mnemonic = aState mnemonic and: self symbolvalue = aState symbolvalue. 
 ]
 
+{ #category : #comparing }
+FSMState >> hash [
+
+	"Common pattern in Smalltalk to define hash function."
+	^ (self mnemonic, self symbolvalue) hash bitXor: (self mnemonic, self symbolvalue) hash
+]
+
+{ #category : #initialization }
+FSMState >> initialize [
+
+	super initialize.
+	mnemonic := 'S0'.
+	symbolvalue := 'S0'
+]
+
 { #category : #accessing }
 FSMState >> mnemonic [
 	^ mnemonic
@@ -51,7 +66,14 @@ FSMState >> mnemonic: aString [
 { #category : #printing }
 FSMState >> printOn: aStream [
 
-	aStream nextPutAll: '('; nextPutAll: self mnemonic asString; nextPutAll: '/'; nextPutAll: self symbolvalue asString; nextPutAll: ')'.
+	aStream
+		cr;
+		nextPutAll: '(';
+		nextPutAll: self mnemonic asString;
+		nextPutAll: '/';
+		nextPutAll: self symbolvalue asString;
+		nextPutAll: ')';
+		cr
 ]
 
 { #category : #accessing }

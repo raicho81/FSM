@@ -72,6 +72,11 @@ FSM >> endstates [
 	^ endstates
 ]
 
+{ #category : #accessing }
+FSM >> endstates: aSet [
+	endstates := aSet
+]
+
 { #category : #initialization }
 FSM >> initialize [
 

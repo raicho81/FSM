@@ -131,6 +131,7 @@ FSMTest >> testWorking [
 		add: (FSMState withMnemonic: 'S8');
 		add: (FSMState withMnemonic: 'S5');
 		add: (FSMState withMnemonic: 'S9').
+	fsm endstates: finalstates.
 	"r: Add a nonexistent state S9 as an intercept state to, which will point all states from,
 	which there are no possible transitions from the current state to any other defined by the Regular Grammar G of the FSM
 	""""This is the canonical way to make any FSM a fully determined DFSM in this case when we raech S9 the FSM doesn't recognize nothing but is in final state and can stop and we can restart it to continue matching.""""	
