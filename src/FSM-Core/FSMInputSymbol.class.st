@@ -16,7 +16,8 @@ Class {
 FSMInputSymbol class >> withMnemonic: aMnemonic withValue: aValue [
 
 	|inps|
-	inps:= FSMInputSymbol withMnemonic: aMnemonic  withValue: aValue.
+	inps:= FSMInputSymbol new.
+	inps mnemonic: aMnemonic;  symbolvalue: aValue.
 	^inps
 ]
 
