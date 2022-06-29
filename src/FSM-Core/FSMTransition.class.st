@@ -4,6 +4,10 @@ FSMTRansition - a class representing a transition of the form S'->a'->S'' direct
 Class {
 	#name : #FSMTransition,
 	#superclass : #Association,
+	#instVars : [
+		'mnemonic',
+		'symbolvalue'
+	],
 	#category : #'FSM-Core'
 }
 
@@ -21,4 +25,14 @@ FSMTransition class >> withState: aState withInputSymbol: aInputSymbol withNewSt
 FSMTransition >> initialize [ 
 	key := nil.
 	value := nil.
+]
+
+{ #category : #accessing }
+FSMTransition >> mnemonic [
+	^ mnemonic
+]
+
+{ #category : #accessing }
+FSMTransition >> symbolvalue [
+	^ symbolvalue
 ]
