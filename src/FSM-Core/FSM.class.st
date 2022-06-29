@@ -20,6 +20,40 @@ FSM >> curstate [
 	^ curstate
 ]
 
+{ #category : #debugging }
+FSM >> dump [
+
+	Transcript show: inputalphabet asString; cr;
+	show: outputalphabet asString; cr;
+	show: startsymbol asString;	cr ;
+	show: curstate asString; cr;
+	show:endstates asString;	cr;
+	show: transitions asString;	cr
+]
+
+{ #category : #debugging }
+FSM >> dumpToStream: aStream [
+
+	aStream
+		nextPut: inputalphabet asString;
+		cr.
+	aStream
+		nextPut: outputalphabet asString;
+		cr.
+	aStream
+		nextPut: startsymbol asString;
+		cr.
+	aStream
+		nextPut: curstate asString;
+		cr.
+	aStream
+		nextPut: endstates asString;
+		cr.
+	aStream
+		nextPut: transitions asString;
+		cr
+]
+
 { #category : #accessing }
 FSM >> endstates [
 	^ endstates
@@ -30,7 +64,7 @@ FSM >> initialize [
 
 	inputalphabet := FSMInputAlphabet new.
 	outputalphabet := FSMOutputAlphabet new.
-	startsymbol := FSMState withMnemonic: 'S0' withValue: 'S0'.
+	startsymbol := FSMState withMnemonic: 'S0' withValue: 'S0'. "By convention the non-terminals are all *UPPERCASE* followed by their respective index in the non-terminals set. The start symbol is S0."
 	curstate := startsymbol.
 	endstates := FSMOutputAlphabet new.
 	transitions := FSMTransitions new
@@ -42,8 +76,26 @@ FSM >> inputalphabet [
 ]
 
 { #category : #accessing }
+FSM >> inputalphabet: aSet [
+
+	inputalphabet := aSet.
+]
+
+{ #category : #accessing }
 FSM >> outputalphabet [
 	^ outputalphabet
+]
+
+{ #category : #accessing }
+FSM >> outputalphabet: aSet [
+
+	outputalphabet := aSet.
+]
+
+{ #category : #initialization }
+FSM >> resetFSM [
+
+	curstate := startsymbol.
 ]
 
 { #category : #accessing }
