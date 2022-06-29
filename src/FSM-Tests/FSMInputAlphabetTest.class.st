@@ -7,7 +7,7 @@ Class {
 { #category : #tests }
 FSMInputAlphabetTest >> testInitializationIsOk [
 
-	|fsmiab|
+	| fsmiab |
 	fsmiab := FSMInputAlphabet new.
 	self assert: fsmiab isEmpty.
 ]

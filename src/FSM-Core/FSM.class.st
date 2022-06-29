@@ -27,10 +27,10 @@ FSM >> initialize [
 
 	inputalphabet := FSMInputAlphabet new.
 	outputalphabet := FSMOutputAlphabet new.
-	transitions := FSMTranasitions new.
-	startsymbol := nil.
+	startsymbol := FSMState withMnemonic: 'S0' withValue: 'S0'.
 	curstate := startsymbol.
-	endstates :=  FSMOutputAlphabet new.
+	endstates := FSMOutputAlphabet new.
+	transitions := FSMTransitions new
 ]
 
 { #category : #accessing }

@@ -5,32 +5,19 @@ Class {
 		'mnemonic',
 		'symbolvalue'
 	],
+	#classInstVars : [
+		'mnemonic',
+		'symbolvalue'
+	],
 	#category : #'FSM-Core'
 }
 
-{ #category : #accessing }
-FSMInputSymbol class >> mnemonic [
-	^ mnemonic
-]
-
-{ #category : #sccessing }
-FSMInputSymbol class >> mnemonic: aString [ 
-	mnemonic:= aString
-]
-
-{ #category : #accessing }
-FSMInputSymbol class >> symbolvalue [
-	^ symbolvalue
-]
-
-{ #category : #accessing }
-FSMInputSymbol class >> symbolvalue: aString [ 
-	symbolvalue := aString 
-]
-
 { #category : #'instance creation' }
 FSMInputSymbol class >> withMnemonic: aMnemonic withValue: aValue [
-	self mnemonic: aMnemonic; symbolvalue: aValue.
+
+	|inps|
+	inps:= FSMInputSymbol withMnemonic: aMnemonic  withValue: aValue.
+	^inps
 ]
 
 { #category : #initialization }
@@ -39,4 +26,24 @@ FSMInputSymbol >> initialize [
 	super initialize.
 	mnemonic := ''.
 	symbolvalue := ''
+]
+
+{ #category : #accessing }
+FSMInputSymbol >> mnemonic [
+	^ mnemonic
+]
+
+{ #category : #accessing }
+FSMInputSymbol >> mnemonic: aString [ 
+	mnemonic:= aString
+]
+
+{ #category : #accessing }
+FSMInputSymbol >> symbolvalue [
+	^ symbolvalue
+]
+
+{ #category : #accessing }
+FSMInputSymbol >> symbolvalue: aString [ 
+	symbolvalue := aString 
 ]

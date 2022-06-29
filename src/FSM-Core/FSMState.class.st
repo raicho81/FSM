@@ -3,8 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'mnemonic',
-		'symbolvalue',
-		'symbolvaue'
+		'symbolvalue'
 	],
 	#category : #'FSM-Core'
 }
@@ -18,6 +17,11 @@ FSMState class >> withMnemonic: aMnemonic withValue: aValue [
 		mnemonic: aMnemonic;
 		symbolvalue: aValue.
 	^fsmstate
+]
+
+{ #category : #comparing }
+FSMState >> = aState [
+^ self mnemonic = aState mnemonic and: self symbolvalue = aState symbolvalue. 
 ]
 
 { #category : #initialization }

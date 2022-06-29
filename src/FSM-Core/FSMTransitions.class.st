@@ -1,5 +1,5 @@
 Class {
-	#name : #FSMTranasitions,
+	#name : #FSMTransitions,
 	#superclass : #Dictionary,
 	#category : #'FSM-Core'
 }
