@@ -23,12 +23,19 @@ FSM >> curstate [
 { #category : #debugging }
 FSM >> dump [
 
-	Transcript show: inputalphabet asString; cr;
-	show: outputalphabet asString; cr;
-	show: startsymbol asString;	cr ;
-	show: curstate asString; cr;
-	show:endstates asString;	cr;
-	show: transitions asString;	cr
+	Transcript
+		show: 'Input alphabet (terminals): '; show: inputalphabet asString;
+		cr;
+		show: 'Outout alphabet (non-terminals): '; show: outputalphabet asString;
+		cr;
+		show: 'Start symbol: ';show: startsymbol asString;
+		cr;
+		show: 'Current FSM state: ';show: curstate asString;
+		cr;
+		show: 'FSM Final (End) States: ';show: endstates asString;
+		cr;
+		show: 'FSM transitions: '; show: transitions asString;
+		cr
 ]
 
 { #category : #debugging }

@@ -25,7 +25,7 @@ FSMTest >> testInitializationIsOk [
 { #category : #tests }
 FSMTest >> testWorking [
 
-	| fsm inpab outab |
+	| fsm inpab outab transitions |
 	fsm := FSM new.
 	inpab := FSMInputAlphabet new.
 	inpab
@@ -42,8 +42,48 @@ FSMTest >> testWorking [
 		add: (FSMState withMnemonic: 'S2' withValue: 'S2');
 		add: (FSMState withMnemonic: 'S3' withValue: 'S3');
 		add: (FSMState withMnemonic: 'S4' withValue: 'S4');
-		add: (FSMState withMnemonic: 'S5' withValue: 'S5').
+		add: (FSMState withMnemonic: 'S5' withValue: 'S5');
+		add: (FSMState withMnemonic: 'S6' withValue: 'S6');
+		add: (FSMState withMnemonic: 'S7' withValue: 'S7').
 	fsm outputalphabet: outab.
 
-	fsm dump
+	transitions := FSMTransitions new.
+	transitions
+		add:
+			(FSMTransition
+				 withState: 'S0'
+				 withInputSymbol: 'a'
+				 withNewState: 'S1');
+		add:
+			(FSMTransition
+				 withState: 'S0'
+				 withInputSymbol: 'b'
+				 withNewState: 'S2');
+		add:
+			(FSMTransition
+				 withState: 'S2'
+				 withInputSymbol: 'd'
+				 withNewState: 'S7');
+		add:
+			(FSMTransition
+				 withState: 'S7'
+				 withInputSymbol: 'a'
+				 withNewState: 'S8');	
+		add:
+			(FSMTransition
+				 withState: 'S8'
+				 withInputSymbol: 'a'
+				 withNewState: 'S8');	
+		add:
+			(FSMTransition
+				 withState: 'S8'
+				 withInputSymbol: 'b'
+				 withNewState: 'S8');
+		add:
+			(FSMTransition
+				 withState: 'S7'
+				 withInputSymbol: 'e'
+				 withNewState: 'S4').		
+														
+	fsm dump "FSM Structures are dumped to Transcript"
 ]
