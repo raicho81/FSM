@@ -56,6 +56,11 @@ FSMTest >> testWorking [
 				 withNewState: 'S1');
 		add:
 			(FSMTransition
+				 withState: 'S1'
+				 withInputSymbol: 'b'
+				 withNewState: 'S3');				
+		add:
+			(FSMTransition
 				 withState: 'S0'
 				 withInputSymbol: 'b'
 				 withNewState: 'S2');
@@ -68,12 +73,12 @@ FSMTest >> testWorking [
 			(FSMTransition
 				 withState: 'S7'
 				 withInputSymbol: 'a'
-				 withNewState: 'S8');	
+				 withNewState: 'S8');
 		add:
 			(FSMTransition
 				 withState: 'S8'
 				 withInputSymbol: 'a'
-				 withNewState: 'S8');	
+				 withNewState: 'S8');
 		add:
 			(FSMTransition
 				 withState: 'S8'
@@ -83,7 +88,41 @@ FSMTest >> testWorking [
 			(FSMTransition
 				 withState: 'S7'
 				 withInputSymbol: 'e'
-				 withNewState: 'S4').		
-														
-	fsm dump "FSM Structures are dumped to Transcript"
+				 withNewState: 'S4');
+		add:
+			(FSMTransition
+				 withState: 'S4'
+				 withInputSymbol: 'b'
+				 withNewState: 'S2');
+		add:
+			(FSMTransition
+				 withState: 'S4'
+				 withInputSymbol: 'f'
+				 withNewState: 'S6');				
+		add:
+			(FSMTransition
+				 withState: 'S6'
+				 withInputSymbol: 'g'
+				 withNewState: 'S4');				
+		add:
+			(FSMTransition
+				 withState: 'S6'
+				 withInputSymbol: 'g'
+				 withNewState: 'S4');				
+		add:
+			(FSMTransition
+				 withState: 'S4'
+				 withInputSymbol: 'b'
+				 withNewState: 'S5');		
+		add:
+			(FSMTransition
+				 withState: 'S3'
+				 withInputSymbol: 'a'
+				 withNewState: 'S5');
+		add:
+			(FSMTransition
+				 withState: 'S5'
+				 withInputSymbol: 'a'
+				 withNewState: 'S5').	
+	fsm dump. "Dump FSM Structures to console (Transcript in Pharo/Smalltalk/Sqeak)"
 ]
