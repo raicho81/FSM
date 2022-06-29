@@ -25,7 +25,7 @@ FSMTest >> testInitializationIsOk [
 { #category : #tests }
 FSMTest >> testWorking [
 
-	| fsm inpab outab transitions |
+	| fsm inpab outab transitions finalstates |
 	fsm := FSM new.
 	inpab := FSMInputAlphabet new.
 	inpab
@@ -58,7 +58,7 @@ FSMTest >> testWorking [
 			(FSMTransition
 				 withState: 'S1'
 				 withInputSymbol: 'b'
-				 withNewState: 'S3');				
+				 withNewState: 'S3');
 		add:
 			(FSMTransition
 				 withState: 'S0'
@@ -98,22 +98,22 @@ FSMTest >> testWorking [
 			(FSMTransition
 				 withState: 'S4'
 				 withInputSymbol: 'f'
-				 withNewState: 'S6');				
+				 withNewState: 'S6');
 		add:
 			(FSMTransition
 				 withState: 'S6'
 				 withInputSymbol: 'g'
-				 withNewState: 'S4');				
+				 withNewState: 'S4');
 		add:
 			(FSMTransition
 				 withState: 'S6'
 				 withInputSymbol: 'g'
-				 withNewState: 'S4');				
+				 withNewState: 'S4');
 		add:
 			(FSMTransition
 				 withState: 'S4'
 				 withInputSymbol: 'b'
-				 withNewState: 'S5');		
+				 withNewState: 'S5');
 		add:
 			(FSMTransition
 				 withState: 'S3'
@@ -123,6 +123,17 @@ FSMTest >> testWorking [
 			(FSMTransition
 				 withState: 'S5'
 				 withInputSymbol: 'a'
-				 withNewState: 'S5').	
-	fsm dump. "Dump FSM Structures to console (Transcript in Pharo/Smalltalk/Sqeak)"
+				 withNewState: 'S5').
+	fsm transitions: transitions.
+
+	finalstates := FSMOutputAlphabet new.
+	finalstates
+		add: (FSMState withMnemonic: 'S8' withValue: 'S8');
+		add: (FSMState withMnemonic: 'S5' withValue: 'S5');
+		add: (FSMState withMnemonic: 'S9' withValue: 'S9').
+	"Add a nonexistent state S9 as an intercept state to, which wiull point all states from, which there are no possible transitions from the current state to any other defined by the Regular Grammar G of the FSM       	 		https://en.wikipedia.org/wiki/Regular_grammar
+		https://en.wikipedia.org/wiki/Regular_language
+		https://en.wikipedia.org/wiki/Thompson%27s_construction"
+	"This the canonical way to make any FSM a fully determined DFSM in this case when we raech S9 the FSM doesn't recognize nothing but is in final state and can stop and restart it if needed."
+	fsm dump "Dump FSM Structures to console (Transcript in Pharo/Smalltalk/Sqeak)"
 ]

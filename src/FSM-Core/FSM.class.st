@@ -24,17 +24,23 @@ FSM >> curstate [
 FSM >> dump [
 
 	Transcript
-		show: 'Input alphabet (terminals): '; show: inputalphabet asString;
+		show: 'Input alphabet (terminals): ';
+		show: inputalphabet asString;
 		cr;
-		show: 'Outout alphabet (non-terminals): '; show: outputalphabet asString;
+		show: 'Output alphabet (non-terminals): ';
+		show: outputalphabet asString;
 		cr;
-		show: 'Start symbol: ';show: startsymbol asString;
+		show: 'Start symbol: ';
+		show: startsymbol asString;
 		cr;
-		show: 'Current FSM state: ';show: curstate asString;
+		show: 'Current FSM state: ';
+		show: curstate asString;
 		cr;
-		show: 'FSM Final (End) States: ';show: endstates asString;
+		show: 'FSM Final (End) States: ';
+		show: endstates asString;
 		cr;
-		show: 'FSM transitions: '; show: transitions asString;
+		show: 'FSM transitions: ';
+		show: transitions asString;
 		cr
 ]
 
@@ -113,4 +119,10 @@ FSM >> startstate [
 { #category : #accessing }
 FSM >> transitions [
 	^ transitions
+]
+
+{ #category : #accessing }
+FSM >> transitions: aSet [
+
+	transitions := aSet
 ]
