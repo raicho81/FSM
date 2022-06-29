@@ -1,3 +1,6 @@
+"
+FSMState - represent an non-terminal symbol i.e. an output alphabet symbol. The state has a mnemonic (the symbol code if you wish and a value for future use).
+"
 Class {
 	#name : #FSMState,
 	#superclass : #Object,
@@ -40,6 +43,12 @@ FSMState >> mnemonic [
 { #category : #accessing }
 FSMState >> mnemonic: aString [ 
 	mnemonic := aString
+]
+
+{ #category : #printing }
+FSMState >> printOn: aStream [
+
+	aStream nextPutAll: '('; nextPutAll: self mnemonic asString; nextPutAll: '/'; nextPutAll: self symbolvalue asString; nextPutAll: ')'.
 ]
 
 { #category : #accessing }

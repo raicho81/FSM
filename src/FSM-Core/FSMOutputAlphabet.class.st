@@ -1,3 +1,6 @@
+"
+Class for representing the output alphabet made up from FSMStates (non-terminals).
+"
 Class {
 	#name : #FSMOutputAlphabet,
 	#superclass : #Set,

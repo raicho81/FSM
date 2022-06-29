@@ -1,3 +1,6 @@
+"
+The main FSM class, which will do the heavy lifting.
+"
 Class {
 	#name : #FSM,
 	#superclass : #Object,

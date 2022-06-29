@@ -1,3 +1,6 @@
+"
+A class to represent and input (terminal symbol) with mnemonic and value, which is really optional for now probably can be used in the future.
+"
 Class {
 	#name : #FSMInputSymbol,
 	#superclass : #Object,

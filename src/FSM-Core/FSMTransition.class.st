@@ -1,3 +1,6 @@
+"
+FSMTRansition - a class representing a transition of the form S'->a'->S'' directly inheriting from Association for more convenience.
+"
 Class {
 	#name : #FSMTransition,
 	#superclass : #Association,
