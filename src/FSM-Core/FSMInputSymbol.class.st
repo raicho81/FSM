@@ -15,10 +15,12 @@ Class {
 { #category : #'instance creation' }
 FSMInputSymbol class >> withMnemonic: aMnemonic withValue: aValue [
 
-	|inps|
-	inps:= FSMInputSymbol new.
-	inps mnemonic: aMnemonic;  symbolvalue: aValue.
-	^inps
+	| inps |
+	inps := self new.
+	inps
+		mnemonic: aMnemonic;
+		symbolvalue: aValue.
+	^ inps
 ]
 
 { #category : #initialization }
