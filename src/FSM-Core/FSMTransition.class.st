@@ -21,6 +21,17 @@ FSMTransition class >> withState: aState withInputSymbol: aInputSymbol withNewSt
 	^ t
 ]
 
+{ #category : #'instance creation' }
+FSMTransition class >> withTriplet: aTriplet [
+
+	| instance |
+	instance := self
+		withState: (aTriplet at: 1)
+		withInputSymbol: (aTriplet at: 2)
+		withNewState: (aTriplet at: 3)
+	^ instance
+]
+
 { #category : #initialization }
 FSMTransition >> initialize [
 

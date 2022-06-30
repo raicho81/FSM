@@ -67,13 +67,11 @@ FSMState >> mnemonic: aString [
 FSMState >> printOn: aStream [
 
 	aStream
-		cr;
 		nextPutAll: '(';
 		nextPutAll: self mnemonic asString;
 		nextPutAll: '/';
 		nextPutAll: self symbolvalue asString;
-		nextPutAll: ')';
-		cr
+		nextPutAll: ')'
 ]
 
 { #category : #accessing }
