@@ -144,5 +144,7 @@ FSMTest >> testWorking [
 
 	randomsymbols := OrderedCollection new: 5000.
 	randomsymbols collect: [ :_ | "Init random array with input alphabet symbols for testing the FSM." 
-		inpab at: inpab size atRandom ]
+		inpab at: inpab size atRandom ].
+
+	fsm runWithArray: randomsymbols.	
 ]

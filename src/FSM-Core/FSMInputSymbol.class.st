@@ -8,10 +8,6 @@ Class {
 		'mnemonic',
 		'symbolvalue'
 	],
-	#classInstVars : [
-		'mnemonic',
-		'symbolvalue'
-	],
 	#category : #'FSM-Core'
 }
 
