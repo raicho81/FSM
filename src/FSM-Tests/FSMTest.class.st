@@ -25,105 +25,28 @@ FSMTest >> testInitializationIsOk [
 { #category : #tests }
 FSMTest >> testWorking [
 
-	| fsm inpab outab transitions finalstates randomsymbols |
+	| fsm transitions finalstates randomsymbols |
 	fsm := FSM new.
-	inpab := FSMInputAlphabet new.
-	inpab
-		add: (FSMInputSymbol withMnemonic: 'a');
-		add: (FSMInputSymbol withMnemonic: 'b');
-		add: (FSMInputSymbol withMnemonic: 'e');
-		add: (FSMInputSymbol withMnemonic: 'c');
-		add: (FSMInputSymbol withMnemonic: 'd').
-	fsm inputalphabet: inpab.
+	{ 'a'. 'b'. 'c'. 'd'. 'e' } do: [ :each | 
+		fsm inputAlphabetAdd: (FSMInputSymbol withMnemonic: each) ].
 
-	outab := FSMOutputAlphabet new.
-	outab
-		add: (FSMState withMnemonic: 'S1');
-		add: (FSMState withMnemonic: 'S2');
-		add: (FSMState withMnemonic: 'S3');
-		add: (FSMState withMnemonic: 'S4');
-		add: (FSMState withMnemonic: 'S5');
-		add: (FSMState withMnemonic: 'S6');
-		add: (FSMState withMnemonic: 'S7').
-	fsm outputalphabet: outab.
+	{ 
+		'S1'.
+		'S2'.
+		'S3'.
+		'S4'.
+		'S5'.
+		'S6'.
+		'S7'.
+		('S8' , 'S9') } do: [ :each | fsm outputAlphabetAdd: each ].
 
 	transitions := FSMTransitions new.
-	transitions
-		add:
-			(FSMTransition
-				 withState: 'S0'
-				 withInputSymbol: 'a'
-				 withNewState: 'S1');
-		add:
-			(FSMTransition
-				 withState: 'S1'
-				 withInputSymbol: 'b'
-				 withNewState: 'S3');
-		add:
-			(FSMTransition
-				 withState: 'S0'
-				 withInputSymbol: 'b'
-				 withNewState: 'S2');
-		add:
-			(FSMTransition
-				 withState: 'S2'
-				 withInputSymbol: 'd'
-				 withNewState: 'S7');
-		add:
-			(FSMTransition
-				 withState: 'S7'
-				 withInputSymbol: 'a'
-				 withNewState: 'S8');
-		add:
-			(FSMTransition
-				 withState: 'S8'
-				 withInputSymbol: 'a'
-				 withNewState: 'S8');
-		add:
-			(FSMTransition
-				 withState: 'S8'
-				 withInputSymbol: 'b'
-				 withNewState: 'S8');
-		add:
-			(FSMTransition
-				 withState: 'S7'
-				 withInputSymbol: 'e'
-				 withNewState: 'S4');
-		add:
-			(FSMTransition
-				 withState: 'S4'
-				 withInputSymbol: 'b'
-				 withNewState: 'S2');
-		add:
-			(FSMTransition
-				 withState: 'S4'
-				 withInputSymbol: 'f'
-				 withNewState: 'S6');
-		add:
-			(FSMTransition
-				 withState: 'S6'
-				 withInputSymbol: 'g'
-				 withNewState: 'S4');
-		add:
-			(FSMTransition
-				 withState: 'S6'
-				 withInputSymbol: 'g'
-				 withNewState: 'S4');
-		add:
-			(FSMTransition
-				 withState: 'S4'
-				 withInputSymbol: 'b'
-				 withNewState: 'S5');
-		add:
-			(FSMTransition
-				 withState: 'S3'
-				 withInputSymbol: 'a'
-				 withNewState: 'S5');
-		add:
-			(FSMTransition
-				 withState: 'S5'
-				 withInputSymbol: 'a'
-				 withNewState: 'S5').
+	{ ({ 'S0'. 'a'. 'S1' } , { 'S1'. 'b'. 'S3' } , { 'S0'. 'b'. 'S2' }
+	 , { 'S2'. 'd'. 'S7' } , { 'S7'. 'a'. 'S8' } , { 'S8'. 'a'. 'S8' }
+	 , { 'S8'. 'b'. 'S8' } , { 'S7'. 'e'. 'S4' } , { 'S4'. 'b'. 'S2' }
+	 , { 'S4'. 'f'. 'S6' } , { 'S6'. 'g'. 'S4' } , { 'S6'. 'g'. 'S4' }
+	 , { 'S4'. 'b'. 'S5' } , { 'S3'. 'a'. 'S5' } , { 'S5'. 'a'. 'S5' }) } 
+		do: [ :each | transitions add: (FSMTransition withTriplet: each) ].
 	fsm transitions: transitions.
 
 	finalstates := FSMOutputAlphabet new.
@@ -146,5 +69,5 @@ FSMTest >> testWorking [
 	randomsymbols collect: [ :_ | "Init random array with input alphabet symbols for testing the FSM." 
 		inpab at: inpab size atRandom ].
 
-	fsm runWithArray: randomsymbols.	
+	fsm runWithArray: randomsymbols
 ]

@@ -10,7 +10,8 @@ Class {
 		'startsymbol',
 		'endstates',
 		'curstate',
-		'transitions'
+		'transitions',
+		'endStateEvent'
 	],
 	#category : #'FSM-Core'
 }
@@ -18,6 +19,12 @@ Class {
 { #category : #accessing }
 FSM >> curstate [
 	^ curstate
+]
+
+{ #category : #accessing }
+FSM >> curstate: aState [
+
+	curstate := aState
 ]
 
 { #category : #debugging }
@@ -78,20 +85,28 @@ FSM >> endstates: aSet [
 ]
 
 { #category : #compute }
-FSM >> eval: aFSMInputSymbol [
-
-	self validateParams.
-]
-
-{ #category : #compute }
 FSM >> evalInpSymb: aFSMInputSymbol [
 
-	| a |
+	| assoc state |
 	self validateParams.
 
-	a := Association
-		     key: aFSMInputSymbol mnemonic
-		      value: curstate mnemonic
+	assoc := Association
+		         key: aFSMInputSymbol mnemonic
+		         value: curstate mnemonic.
+	(state := transitions at: assoc) ifNotNil: [ 
+		self curstate: state.
+		endstates
+			at: (FSMState withMnemonic: state);
+			ifNotNil: [ 
+				self fireEndStateEvent.
+				self resetFSM ]
+			ifNil: [  ] ]
+]
+
+{ #category : #'events-triggering' }
+FSM >> fireEndStateEvent [
+
+	endStateEvent update: { (curstate asString ,':', endstates asString) }
 ]
 
 { #category : #initialization }
@@ -102,7 +117,13 @@ FSM >> initialize [
 	startsymbol := FSMState withMnemonic: 'S0' withValue: 'S0'. "By convention the non-terminals are all *UPPERCASE* followed by their respective index in the non-terminals set. The start symbol is S0."
 	curstate := startsymbol.
 	endstates := FSMOutputAlphabet new.
-	transitions := FSMTransitions new
+	transitions := FSMTransitions new.
+	endStateEvent := WeakMessageSend new.
+]
+
+{ #category : #accessing }
+FSM >> inputAlphabetAdd: aFSMInputSymbol [
+	inputalphabet add: aFSMInputSymbol.
 ]
 
 { #category : #accessing }
@@ -114,6 +135,12 @@ FSM >> inputalphabet [
 FSM >> inputalphabet: aSet [
 
 	inputalphabet := aSet.
+]
+
+{ #category : #accessing }
+FSM >> outputAlphabetAdd: aFSMState [
+
+	outputalphabet add: aFSMState
 ]
 
 { #category : #accessing }
@@ -158,18 +185,8 @@ FSM >> transitions: aSet [
 { #category : #initialization }
 FSM >> validateParams [
 
-	endstates size <= 0 ifTrue: [ 
-		self error:
-			'Empty end/final tsates set. No need to run infinitely right ;) Aborting ...'.
-	startsymbol = FSMState new ifFalse:
-		self error:
-			'Wrong start state. Shuld be "S0". FSM wasnt reset? Aborting ...' ].
-
-	(inputalphabet size <= 0)
-		self error:
-			'Empty inputalphabet set. No need to run infinitely right ;) Aborting ...'.
-		
-		(inputalphabet size <= 0)
-		self error:
-			'Empty inputalphabet set. No need to run infinitely right ;) Aborting ...'.
+	"Do some basic validation of the input data."
+	( endstates size <= 0 ) ifTrue: [ self error: 'Empty end/final tsates set. No need to run infinitely right ;) Aborting ...'.
+	( startsymbol = FSMState new ) ifFalse: [ self error: 'Wrong start state. Shuld be "S0". FSM wasnt reset? Aborting ...' ].
+	( inputalphabet size <= 0 ) ifTrue: [ self error: 'Empty inputalphabet set. No need to run infinitely right ;) Aborting ...' ].
 ]
