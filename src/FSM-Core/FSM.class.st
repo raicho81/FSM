@@ -186,7 +186,7 @@ FSM >> transitions: aSet [
 FSM >> validateParams [
 
 	"Do some basic validation of the input data."
-	( endstates size <= 0 ) ifTrue: [ self error: 'Empty end/final tsates set. No need to run infinitely right ;) Aborting ...'.
+	( endstates size <= 0 ) ifTrue: [ self error: 'Empty end/final tsates set. No need to run infinitely right ;) Aborting ...' ].
 	( startsymbol = FSMState new ) ifFalse: [ self error: 'Wrong start state. Shuld be "S0". FSM wasnt reset? Aborting ...' ].
 	( inputalphabet size <= 0 ) ifTrue: [ self error: 'Empty inputalphabet set. No need to run infinitely right ;) Aborting ...' ].
 ]
