@@ -84,23 +84,30 @@ FSM >> endstates: aSet [
 	endstates := aSet
 ]
 
+{ #category : #accessing }
+FSM >> endstatesAdd: aFSMState [ 
+	self endstates add: aFSMState 
+]
+
 { #category : #compute }
 FSM >> evalInpSymb: aFSMInputSymbol [
 
-	| assoc state |
+	| assoc state endstate |
 	self validateParams.
 
 	assoc := Association
 		         key: aFSMInputSymbol mnemonic
 		         value: curstate mnemonic.
-	(state := transitions at: assoc) ifNotNil: [ 
-		self curstate: state.
-		endstates
-			at: (FSMState withMnemonic: state);
-			ifNotNil: [ 
+	(state := transitions at: assoc)
+		ifNotNil: [ 
+			self curstate: state.
+			endstate := endstates at: (FSMState withMnemonic: state).
+			endstate ifNotNil: [ 
+				self fireEndStateEvent.
+				self resetFSM ] ]
+		ifNil: [ self curstate: (FSMState withMnemonic: 'S9').
 				self fireEndStateEvent.
 				self resetFSM ]
-			ifNil: [  ] ]
 ]
 
 { #category : #'events-triggering' }
@@ -163,7 +170,7 @@ FSM >> resetFSM [
 { #category : #run }
 FSM >> runWithArray: aCollection [
 
-	aCollection do: [ :inputsymb | self evalInpSymb inputsymb ]
+	aCollection do: [ :inputsymb | self evalInpSymb: inputsymb ]
 ]
 
 { #category : #accessing }
@@ -180,6 +187,11 @@ FSM >> transitions [
 FSM >> transitions: aSet [
 
 	transitions := aSet
+]
+
+{ #category : #accessing }
+FSM >> transitionsAdd: aFSMTransition [ 
+	self transitions add: aFSMTransition
 ]
 
 { #category : #initialization }
