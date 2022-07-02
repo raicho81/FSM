@@ -30,7 +30,7 @@ FSMTest >> testWorking [
 	{ 'a'. 'b'. 'c'. 'd'. 'e' } do: [ :each | 
 		fsm inputAlphabetAdd: (FSMInputSymbol withMnemonic: each) ].
 	{ 'S1'. 'S2'. 'S3'. 'S4'. 'S5'. 'S6'. 'S7'. 'S8'. 'S9' } do: [ :each | 
-		fsm outputAlphabetAdd:(FSMState withMnemonic: each) ].
+		fsm outputAlphabetAdd: (FSMState withMnemonic: each) ].
 	{ 
 		{ 'S0'. 'a'. 'S1' }.
 		{ 'S1'. 'b'. 'S3' }.
@@ -52,7 +52,8 @@ FSMTest >> testWorking [
 		fsm endstatesAdd: (FSMState withMnemonic: each) ].
 	"r: Add a nonexistent state S9 as an intercept state to, which will point all states from,
 	which there are no possible transitions from the current state to any other defined by the Regular Grammar G of the FSM
-	""""This is the canonical way to make any FSM a fully determined DFSM in this case when we raech S9 the FSM doesn't recognize nothing but is in final state and can stop and we can restart it to continue matching.""""	
+	This is the canonical way to make any FSM a fully determined DFSM in this case when we raech S9 the FSM doesn't recognize nothing
+	but is in final state and can stop and we can restart it to continue matching.
    https://en.wikipedia.org/wiki/Regular_grammar
 	https://en.wikipedia.org/wiki/Regular_language
 	I guess the next step is to implement this paper: https://en.wikipedia.org/wiki/Thompson%27s_construction 
