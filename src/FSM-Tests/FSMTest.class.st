@@ -30,7 +30,7 @@ FSMTest >> testWorking [
 	{ 'a'. 'b'. 'c'. 'd'. 'e' } do: [ :each | 
 		fsm inputAlphabetAdd: (FSMInputSymbol withMnemonic: each) ].
 	{ 'S1'. 'S2'. 'S3'. 'S4'. 'S5'. 'S6'. 'S7'. 'S8'. 'S9' } do: [ :each | 
-		fsm outputAlphabetAdd: each ].
+		fsm outputAlphabetAdd:(FSMState withMnemonic: each) ].
 	{ 
 		{ 'S0'. 'a'. 'S1' }.
 		{ 'S1'. 'b'. 'S3' }.

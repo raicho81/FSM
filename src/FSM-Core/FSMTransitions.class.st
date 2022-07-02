@@ -13,8 +13,10 @@ FSMTransitions >> printOn: aStream [
 	self keysDo: [ :k | 
 		aStream
 			nextPutAll: '|';
-			nextPutAll: k asString;
+			nextPutAll: k key;
 			nextPutAll: '->';
-		   nextPutAll: (self at: k) asString;
+			nextPutAll: k value;
+			nextPutAll: '->';
+			nextPutAll: (self at: k);
 			nextPutAll: '|' ]
 ]

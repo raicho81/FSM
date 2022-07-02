@@ -4,10 +4,6 @@ FSMTRansition - a class representing a transition of the form S'->a'->S'' direct
 Class {
 	#name : #FSMTransition,
 	#superclass : #Association,
-	#instVars : [
-		'mnemonic',
-		'symbolvalue'
-	],
 	#category : #'FSM-Core'
 }
 
@@ -28,7 +24,7 @@ FSMTransition class >> withTriplet: aTriplet [
 	instance := self
 		withState: (aTriplet at: 1)
 		withInputSymbol: (aTriplet at: 2)
-		withNewState: (aTriplet at: 3)
+		withNewState: (aTriplet at: 3).
 	^ instance
 ]
 
@@ -39,25 +35,15 @@ FSMTransition >> initialize [
 	value := ''
 ]
 
-{ #category : #accessing }
-FSMTransition >> mnemonic [
-	^ mnemonic
-]
-
 { #category : #printing }
 FSMTransition >> printOn: aStream [
 
 	aStream
 		cr;
 		nextPutAll: '|';
-		nextPutAll: self mnemonic asString;
+		nextPutAll: self key;
 		nextPutAll: '->';
-		nextPutAll: self symbolvalue asString;
-		nextPutAll: '|)|';
+		nextPutAll: self value;
+		nextPutAll: '|';
 		cr
-]
-
-{ #category : #accessing }
-FSMTransition >> symbolvalue [
-	^ symbolvalue
 ]
