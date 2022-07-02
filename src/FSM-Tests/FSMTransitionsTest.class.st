@@ -9,9 +9,9 @@ FSMTransitionsTest >> testInitializationIsOk [
 
 	| fsmtrans t1 t2 t3|
 	fsmtrans := FSMTransitions new.
-	t1 := FSMTransition withState: (FSMState withTriplet: { '0'. 'a'.  'S1' }.
-	t2 := FSMTransition withState: (FSMState withTriplet: { 'S1'. 'b'. 'S2' }.
-	t3 := FSMTransition withState: (FSMState withTriplet: { 'S2'. 'e'. 'S4' }.
+	t1 := FSMTransition withState: (FSMState withTriplet: { '0'. 'a'.  'S1' }).
+	t2 := FSMTransition withState: (FSMState withTriplet: { 'S1'. 'b'. 'S2' }).
+	t3 := FSMTransition withState: (FSMState withTriplet: { 'S2'. 'e'. 'S4' }).
 	fsmtrans add: t1.
 	fsmtrans add: t2.
 	self assert: (fsmtrans at: t1 key) equals: t1 value.
