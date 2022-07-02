@@ -34,16 +34,3 @@ FSMTransition >> initialize [
 	key := ''.
 	value := ''
 ]
-
-{ #category : #printing }
-FSMTransition >> printOn: aStream [
-
-	aStream
-		cr;
-		nextPutAll: '|';
-		nextPutAll: self key;
-		nextPutAll: '->';
-		nextPutAll: self value;
-		nextPutAll: '|';
-		cr
-]
