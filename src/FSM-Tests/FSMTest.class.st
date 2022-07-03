@@ -64,6 +64,7 @@ FSMTest >> testWorking [
 	"Test with real input"
 	fsm runWithArray: ({ 'a'. 'b'. 'a'. 'a'. 'a' } collect: [ :each | 
 			 FSMInputSymbol withMnemonic: each ]).
+	fsm dump.
 	self assert: fsm isfinal.
 	self assert: fsm isrecognized.
 
@@ -71,8 +72,7 @@ FSMTest >> testWorking [
 	fsm runWithArray:
 		({ 'a'. 'b'. 'a'. 'a'. 'a'. 'c' } collect: [ :each | 
 			 FSMInputSymbol withMnemonic: each ]).
+	fsm dump.
 	self assert: fsm isfinal not.
 	self assert: fsm isrecognized not.
-
-	fsm dump
 ]

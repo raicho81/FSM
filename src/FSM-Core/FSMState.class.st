@@ -53,7 +53,5 @@ FSMState >> mnemonic: aString [
 FSMState >> printOn: aStream [
 
 	aStream
-		nextPutAll: '(';
-		nextPutAll: self mnemonic asString;
-		nextPutAll: ')'
+		nextPutAll: self mnemonic asString
 ]
