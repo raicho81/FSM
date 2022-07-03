@@ -57,27 +57,33 @@ FSMTest >> testInitializationIsOk [
 	self assert: fsmempty inputalphabet isEmpty.
 	self assert: fsmempty outputalphabet isEmpty.
 	self assert: fsmempty endstates isEmpty.
-	self assert: fsmempty startstate equals: (FSMState withMnemonic: 'S0').
-	self assert: fsmempty curstate equals: (FSMState withMnemonic: 'S0').
+	self assert: fsmempty startstate equals: FSMState new.
+	self assert: fsmempty curstate equals: FSMState new.
 	self assert: fsmempty transitions isEmpty.
 	fsmempty dump
 ]
 
 { #category : #tests }
-FSMTest >> testWorking [
+FSMTest >> testInputSequence1 [
 
+	fsm resetFSM.
 	({ 'a'. 'b'. 'a'. 'a'. 'a' } collect: [ :eachSymbol | 
-		 FSMInputSymbol withMnemonic: eachSymbol ]) do: [ :eachFSMInputSymbol | 
-		fsm evalInpSymb: eachFSMInputSymbol ].
+		 FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
+		:eachFSMInputSymbol | fsm evalInpSymb: eachFSMInputSymbol ].
 	fsm dump.
 	self
 		assert: fsm isfinal;
 		assert: fsm isrecognized.
 
+]
+
+{ #category : #tests }
+FSMTest >> testInputSequence2 [
+
 	fsm resetFSM.
-	({ 'a'. 'b'. 'a'. 'a'. 'a'. 'c' } collect: [ :eachSymbol | 
-		 FSMInputSymbol withMnemonic: eachSymbol ]) do: [ :eachFSMInputSymbol | 
-		fsm evalInpSymb: eachFSMInputSymbol ].
+	({ 'a'. 'b'. 'a'. 'a'. 'a'. 'c' .'d' } collect: [ :eachSymbol | 
+		 FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
+		:eachFSMInputSymbol | fsm evalInpSymb: eachFSMInputSymbol ].
 	fsm dump.
 	self
 		assert: fsm isfinal;

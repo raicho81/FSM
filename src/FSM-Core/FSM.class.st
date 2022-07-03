@@ -52,6 +52,9 @@ FSM >> dump [
 		show: ', isrecognized: ';
 		show: self isrecognized;
 		cr;
+		show: 'Current FSM endstate_unrecognized: ';
+		show: endstate_unrecognized asString;
+		cr;
 		show: 'FSM Final (End) States: ';
 		show: endstates asString;
 		cr;
@@ -115,12 +118,11 @@ FSM >> evalInpSymb: aFSMInputSymbol [
 
 	| assoc |
 	inputSequence add: aFSMInputSymbol.
+	curstate = endstate_unrecognized ifTrue: [ ^ self ].	
 	assoc := Association key: curstate value: aFSMInputSymbol.
 	(transitions keys includes: assoc)
-		ifTrue: [ 
-			self curstate: (transitions at: assoc) ]
-		ifFalse: [ 
-			self curstate: self endstate_unrecognized ]
+		ifTrue: [ self curstate: (transitions at: assoc) ]
+		ifFalse: [ self curstate: self endstate_unrecognized ]
 ]
 
 { #category : #'events-triggering' }
@@ -141,7 +143,8 @@ FSM >> initialize [
 	endstates := FSMEndStates new.
 	transitions := FSMTransitions new.
 	endStateEvent := WeakMessageSend new selector: #update.
-	inputSequence := OrderedCollection new
+	inputSequence := OrderedCollection new.
+	endstate_unrecognized := FSMState new.
 ]
 
 { #category : #accessing }
