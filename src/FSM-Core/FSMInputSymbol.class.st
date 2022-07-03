@@ -21,9 +21,9 @@ FSMInputSymbol class >> withMnemonic: aMnemonic [
 ]
 
 { #category : #comparing }
-FSMInputSymbol >> = aState [
+FSMInputSymbol >> = aFSMInputSymbol [
 
-	^ self mnemonic = aState mnemonic. 
+	^ self mnemonic = aFSMInputSymbol mnemonic
 ]
 
 { #category : #comparing }
@@ -46,8 +46,9 @@ FSMInputSymbol >> mnemonic [
 ]
 
 { #category : #accessing }
-FSMInputSymbol >> mnemonic: aString [ 
-	mnemonic:= aString
+FSMInputSymbol >> mnemonic: aInputSymbolMnemonic [
+
+	mnemonic := aInputSymbolMnemonic
 ]
 
 { #category : #printing }
