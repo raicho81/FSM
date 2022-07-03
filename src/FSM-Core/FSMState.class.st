@@ -5,8 +5,7 @@ Class {
 	#name : #FSMState,
 	#superclass : #Object,
 	#instVars : [
-		'mnemonic',
-		'symbolvalue'
+		'mnemonic'
 	],
 	#category : #'FSM-Core-Base'
 }
@@ -17,32 +16,20 @@ FSMState class >> withMnemonic: aMnemonic [
 	| fsmstate |
 	fsmstate := self new.
 	fsmstate
-		mnemonic: aMnemonic;
-		symbolvalue: aMnemonic.
-	^ fsmstate
-]
-
-{ #category : #'instance creation' }
-FSMState class >> withMnemonic: aMnemonic withValue: aValue [
-
-	| fsmstate |
-	fsmstate := self new.
-	fsmstate
-		mnemonic: aMnemonic;
-		symbolvalue: aValue.
+		mnemonic: aMnemonic.
 	^ fsmstate
 ]
 
 { #category : #comparing }
 FSMState >> = aState [
-^ self mnemonic = aState mnemonic and: self symbolvalue = aState symbolvalue. 
+^ self mnemonic = aState mnemonic. 
 ]
 
 { #category : #comparing }
 FSMState >> hash [
 
 	"Common pattern in Smalltalk to define hash function."
-	^ (self mnemonic, self symbolvalue) hash bitXor: (self mnemonic, self symbolvalue) hash
+	^ self mnemonic hash bitXor: self mnemonic hash
 ]
 
 { #category : #initialization }
@@ -50,7 +37,6 @@ FSMState >> initialize [
 
 	super initialize.
 	mnemonic := 'S0'.
-	symbolvalue := 'S0'
 ]
 
 { #category : #accessing }
@@ -69,18 +55,5 @@ FSMState >> printOn: aStream [
 	aStream
 		nextPutAll: '(';
 		nextPutAll: self mnemonic asString;
-		nextPutAll: '/';
-		nextPutAll: self symbolvalue asString;
 		nextPutAll: ')'
-]
-
-{ #category : #accessing }
-FSMState >> symbolvalue [
-
-	^ symbolvalue
-]
-
-{ #category : #accessing }
-FSMState >> symbolvalue: aString [ 
-	symbolvalue := aString
 ]

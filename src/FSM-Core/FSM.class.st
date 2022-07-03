@@ -12,7 +12,8 @@ Class {
 		'curstate',
 		'transitions',
 		'endStateEvent',
-		'inputSequence'
+		'inputSequence',
+		'endstate_unrecognized'
 	],
 	#category : #'FSM-Core-Base'
 }
@@ -73,6 +74,17 @@ FSM >> dumpToStream: aStream [
 	aStream
 		nextPut: transitions asString;
 		cr
+]
+
+{ #category : #accessing }
+FSM >> endstate_unrecognized [
+	^ endstate_unrecognized
+]
+
+{ #category : #accessing }
+FSM >> endstate_unrecognized: aFSMState [
+
+	endstate_unrecognized := aFSMState
 ]
 
 { #category : #accessing }
@@ -144,6 +156,18 @@ FSM >> inputalphabet [
 FSM >> inputalphabet: aSet [
 
 	inputalphabet := aSet.
+]
+
+{ #category : #testing }
+FSM >> isfinal [
+
+	^endstates includes: self curstate
+]
+
+{ #category : #testing }
+FSM >> isrecognized [
+
+	^ self isfinal and: (self endstates includes: self curstate)
 ]
 
 { #category : #accessing }

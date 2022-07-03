@@ -5,8 +5,7 @@ Class {
 	#name : #FSMInputSymbol,
 	#superclass : #Object,
 	#instVars : [
-		'mnemonic',
-		'symbolvalue'
+		'mnemonic'
 	],
 	#category : #'FSM-Core-Base'
 }
@@ -17,20 +16,21 @@ FSMInputSymbol class >> withMnemonic: aMnemonic [
 	| inps |
 	inps := self new.
 	inps
-		mnemonic: aMnemonic;
-		symbolvalue: aMnemonic.
+		mnemonic: aMnemonic.
 	^ inps
 ]
 
-{ #category : #'instance creation' }
-FSMInputSymbol class >> withMnemonic: aMnemonic withValue: aValue [
+{ #category : #comparing }
+FSMInputSymbol >> = aState [
 
-	| inps |
-	inps := self new.
-	inps
-		mnemonic: aMnemonic;
-		symbolvalue: aValue.
-	^ inps
+	^ self mnemonic = aState mnemonic. 
+]
+
+{ #category : #comparing }
+FSMInputSymbol >> hash [
+
+	"Common pattern in Smalltalk to define hash function."
+	^ self mnemonic hash bitXor: self mnemonic hash
 ]
 
 { #category : #initialization }
@@ -38,7 +38,6 @@ FSMInputSymbol >> initialize [
 
 	super initialize.
 	mnemonic := ''.
-	symbolvalue := ''
 ]
 
 { #category : #accessing }
@@ -57,17 +56,5 @@ FSMInputSymbol >> printOn: aStream [
 	aStream
 		nextPutAll: '(';
 		nextPutAll: self mnemonic asString;
-		nextPutAll: '/';
-		nextPutAll: self symbolvalue asString;
 		nextPutAll: ')'
-]
-
-{ #category : #accessing }
-FSMInputSymbol >> symbolvalue [
-	^ symbolvalue
-]
-
-{ #category : #accessing }
-FSMInputSymbol >> symbolvalue: aString [ 
-	symbolvalue := aString 
 ]

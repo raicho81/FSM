@@ -25,7 +25,7 @@ FSMTest >> testInitializationIsOk [
 { #category : #tests }
 FSMTest >> testWorking [
 
-	| fsm randomsymbols |
+	| fsm randomsymbols testinput |
 	fsm := FSM new.
 	{ 'a'. 'b'. 'c'. 'd'. 'e' } do: [ :each | 
 		fsm inputAlphabetAdd: (FSMInputSymbol withMnemonic: each) ].
@@ -50,6 +50,7 @@ FSMTest >> testWorking [
 		fsm transitionsAdd: (FSMTransition withTriplet: each) ].
 	{ 'S8'. 'S5'. 'S9' } do: [ :each | 
 		fsm endstatesAdd: (FSMState withMnemonic: each) ].
+	fsm endstate_unrecognized: (FSMState withMnemonic: 'S9').
 	"r: Add a nonexistent state S9 as an intercept state to, which will point all states from,
 	which there are no possible transitions from the current state to any other defined by the Regular Grammar G of the FSM
 	This is the canonical way to make any FSM a fully determined DFSM in this case when we raech S9 the FSM doesn't recognize nothing
@@ -59,8 +60,14 @@ FSMTest >> testWorking [
 	I guess the next step is to implement this paper: https://en.wikipedia.org/wiki/Thompson%27s_construction 
 	in order to be able to read Regular Expressions and construct FSMs dynamically from them :)"
 	fsm dump. "Dump FSM Structures to console (Transcript in Pharo/Smalltalk/Sqeak)"
+	testinput := { 'a'. 'b'. 'a'. 'a'. 'a' }.
+	testinput := testinput collect: [ :each | 
+		             FSMInputSymbol withMnemonic: each ].
+	fsm runWithArray: testinput.
+	self assert: fsm isrecognized equals: true .
+	fsm dump.
 	randomsymbols := OrderedCollection new: 5000.
-	randomsymbols collect: [ :_ | "Init random array with input alphabet symbols for testing the FSM." 
-		fsm inputalphabet at: fsm inputalphabet size atRandom ].
-	fsm runWithArray: randomsymbols
+	randomsymbols := randomsymbols collect: [ :_ | "Init random array with input alphabet symbols for testing the FSM." 
+		                 fsm inputalphabet at:
+			                 fsm inputalphabet size atRandom ]
 ]

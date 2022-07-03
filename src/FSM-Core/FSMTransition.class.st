@@ -22,9 +22,9 @@ FSMTransition class >> withTriplet: aTriplet [
 
 	| instance |
 	instance := self
-		withState: (aTriplet at: 1)
-		withInputSymbol: (aTriplet at: 2)
-		withNewState: (aTriplet at: 3).
+		withState: (FSMState withMnemonic: (aTriplet at: 1))
+		withInputSymbol: (FSMInputSymbol withMnemonic: (aTriplet at: 2))
+		withNewState: (FSMState withMnemonic: (aTriplet at: 3)).
 	^ instance
 ]
 

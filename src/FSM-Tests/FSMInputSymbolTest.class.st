@@ -7,8 +7,7 @@ Class {
 { #category : #tests }
 FSMInputSymbolTest >> testInitializationIsOk [ 
 	|fsminsymb|
-	fsminsymb := FSMInputSymbol withMnemonic: 'a' withValue: 'a'.
+	fsminsymb := FSMInputSymbol withMnemonic: 'a'.
 	self assert: fsminsymb mnemonic equals: 'a'.
-		self assert: fsminsymb symbolvalue equals: 'a'.
 
 ]
