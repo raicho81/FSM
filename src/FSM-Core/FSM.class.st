@@ -50,7 +50,8 @@ FSM >> dump [
 		cr;
 		show: 'FSM transitions: ';
 		show: transitions asString;
-		cr; cr.
+		cr;
+		cr
 ]
 
 { #category : #debugging }

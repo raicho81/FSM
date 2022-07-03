@@ -1,31 +1,17 @@
 Class {
 	#name : #FSMTest,
 	#superclass : #TestCase,
+	#instVars : [
+		'fsm'
+	],
 	#category : #'FSM-Tests-Base'
 }
 
-{ #category : #tests }
-FSMTest >> testInitializationIsOk [
+{ #category : #running }
+FSMTest >> setUp [
 
-	| fsm |
-	fsm := FSM new.
-	self assert: fsm inputalphabet isEmpty.
-	self assert: fsm outputalphabet isEmpty.
-	self assert: fsm endstates isEmpty.
-	self
-		assert: fsm startstate
-		equals: (FSMState withMnemonic: 'S0').
-	self
-		assert: fsm curstate
-		equals: (FSMState withMnemonic: 'S0').
-	self assert: fsm transitions isEmpty.
-	fsm dump
-]
+	super setUp.
 
-{ #category : #tests }
-FSMTest >> testWorking [
-
-	| fsm |
 	fsm := FSM new.
 	{ 'a'. 'b'. 'c'. 'd'. 'e' } do: [ :each | 
 		fsm inputAlphabetAdd: (FSMInputSymbol withMnemonic: each) ].
@@ -59,20 +45,40 @@ FSMTest >> testWorking [
 	https://en.wikipedia.org/wiki/Regular_language
 	I guess the next step is to implement this paper: https://en.wikipedia.org/wiki/Thompson%27s_construction 
 	in order to be able to read Regular Expressions and construct FSMs dynamically from them :)"
-	fsm dump. "Dump FSM Structures to console (Transcript in Pharo/Smalltalk/Sqeak)"
+	fsm dump "Dump FSM Structures to console (Transcript in Pharo/Smalltalk/Sqeak)"
+]
 
-	"Test with real input"
-	fsm runWithArray: ({ 'a'. 'b'. 'a'. 'a'. 'a' } collect: [ :each | 
-			 FSMInputSymbol withMnemonic: each ]).
+{ #category : #tests }
+FSMTest >> testInitializationIsOk [
+
+	| fsmempty |
+	fsmempty := FSM new.
+	self assert: fsmempty inputalphabet isEmpty.
+	self assert: fsmempty outputalphabet isEmpty.
+	self assert: fsmempty endstates isEmpty.
+	self assert: fsmempty startstate equals: (FSMState withMnemonic: 'S0').
+	self assert: fsmempty curstate equals: (FSMState withMnemonic: 'S0').
+	self assert: fsmempty transitions isEmpty.
+	fsmempty dump
+]
+
+{ #category : #tests }
+FSMTest >> testWorking [
+
+	({ 'a'. 'b'. 'a'. 'a'. 'a' } collect: [ :each | 
+		 FSMInputSymbol withMnemonic: each ]) do: [ :each | 
+		fsm evalInpSymb: each ].
 	fsm dump.
-	self assert: fsm isfinal.
-	self assert: fsm isrecognized.
-
+	self
+		assert: fsm isfinal;
+		assert: fsm isrecognized.
+	
 	fsm resetFSM.
-	fsm runWithArray:
-		({ 'a'. 'b'. 'a'. 'a'. 'a'. 'c' } collect: [ :each | 
-			 FSMInputSymbol withMnemonic: each ]).
+	({ 'a'. 'b'. 'a'. 'a'. 'a'. 'c' } collect: [ :each | 
+		 FSMInputSymbol withMnemonic: each ]) do: [ :each | 
+		fsm evalInpSymb: each ].
 	fsm dump.
-	self assert: fsm isfinal not.
-	self assert: fsm isrecognized not.
+	self
+		assert: fsm isfinal;
+		assert: fsm isrecognized not
 ]
