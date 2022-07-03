@@ -242,14 +242,18 @@ FSM >> validateParams [
 
 	"Do some basic validation of the input data."
 
-	endstates size <= 0 ifTrue: [ 
+	endstates ifEmpty: [ 
 		self error:
 			'Empty end/final tsates set. No need to run infinitely right ;) Aborting ...' ].
 	startsymbol = FSMState new ifFalse: [ 
 		self error:
 			'Wrong start state. Shuld be "S0". FSM wasnt reset? Aborting ...' ].
-	inputalphabet size <= 0 ifTrue: [ 
+	inputalphabet ifEmpty:  [ 
 		self error:
 			'Empty inputalphabet set. No need to run infinitely right ;) Aborting ...' ].
-	endstate_unrecognized ifNil: [ self error: 'The intercept state (unrecognized state) must be set. Aborting ...' ]
+	endstate_unrecognized ~= FSMState new ifFalse: [ 
+		self error:
+			'The intercept state (unrecognized state) must be set. Aborting ...' ].
+	transitions ifEmpty: [ 
+		self error: 'The transitions LUT must not be empty. Aborting ...' ]
 ]
