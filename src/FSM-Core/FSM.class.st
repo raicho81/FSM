@@ -42,8 +42,15 @@ FSM >> dump [
 		show: 'Start symbol: ';
 		show: startsymbol asString;
 		cr;
+		show: 'Current input sequence: ';
+		show: inputSequence asString;
+		cr;
 		show: 'Current FSM state: ';
 		show: curstate asString;
+		show: ', isfinal: ';
+		show: self isfinal;
+		show: ', isrecognized: ';
+		show: self isrecognized;
 		cr;
 		show: 'FSM Final (End) States: ';
 		show: endstates asString;
