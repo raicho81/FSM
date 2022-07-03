@@ -54,6 +54,5 @@ FSMInputSymbol >> mnemonic: aInputSymbolMnemonic [
 { #category : #printing }
 FSMInputSymbol >> printOn: aStream [
 
-	aStream
-		nextPutAll: self mnemonic asString
+	aStream nextPutAll: self mnemonic asString
 ]
