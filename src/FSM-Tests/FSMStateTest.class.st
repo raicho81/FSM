@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #tests }
-FSMStateTest >> testInitializationIsOk [
+FSMStateTest >> testComparisonsOK [
 
 	| testmnemonics |
 	self assert: FSMState new equals: FSMState new.
@@ -14,6 +14,12 @@ FSMStateTest >> testInitializationIsOk [
 		self
 			assert: (FSMState withMnemonic: m)
 			equals: (FSMState withMnemonic: m).
-		self
-			assert: (FSMState withMnemonic: m) ~= (FSMState new) ]
+		self assert: (FSMState withMnemonic: m) ~= FSMState new ]
+]
+
+{ #category : #tests }
+FSMStateTest >> testInitializationIsOk [
+
+	self assert: FSMState new equals: FSMState new
+
 ]
