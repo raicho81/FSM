@@ -14,7 +14,13 @@ FSMStateTest >> testComparisonsOK [
 		self
 			assert: (FSMState withMnemonic: m)
 			equals: (FSMState withMnemonic: m).
-		self assert: (FSMState withMnemonic: m) ~= FSMState new ]
+		self assert: (FSMState withMnemonic: m) ~= FSMState new.
+		self assert:
+			(FSMState withMnemonic: m) ~= (FSMState withMnemonic: 'x').
+		self assert:
+			(FSMState withMnemonic: m) ~= (FSMState withMnemonic: 'y').
+	self assert:
+		(FSMState withMnemonic: m) ~= (FSMState withMnemonic: 'z') ]
 ]
 
 { #category : #tests }
