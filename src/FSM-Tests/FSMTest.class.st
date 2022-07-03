@@ -16,7 +16,7 @@ FSMTest >> setUp [
 	super setUp.
 
 	fsm := FSM new.
-	{ 'a'. 'b'. 'c'. 'd'. 'e' } do: [ :each | 
+	{ 'a'. 'b'. 'c'. 'd'. 'e'. 'f'. 'g' } do: [ :each | 
 		fsm inputAlphabetAdd: (FSMInputSymbol withMnemonic: each) ].
 	{ 'S1'. 'S2'. 'S3'. 'S4'. 'S5'. 'S6'. 'S7'. 'S8'. 'S9' } do: [ :each | 
 		fsm outputAlphabetAdd: (FSMState withMnemonic: each) ].
@@ -48,7 +48,7 @@ FSMTest >> setUp [
 	https://en.wikipedia.org/wiki/Regular_language
 	I guess the next step is to implement this paper: https://en.wikipedia.org/wiki/Thompson%27s_construction 
 	in order to be able to read Regular Expressions and construct FSMs dynamically from them :)"
-	fsm validateParams.
+	fsm validateParams
 	"fsm dump" "Dump FSM Structures to console (Transcript in Pharo/Smalltalk/Sqeak)"
 ]
 
@@ -219,8 +219,7 @@ FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
 					 fsm inputalphabet size atRandom) ].
 		randinpsequence do: [ :eachFSMInputSymbol | 
 			fsm evalInpSymb: eachFSMInputSymbol ].
-		fsm isrecognized ifTrue: [ 
-			"Transcript
+		fsm isrecognized ifTrue: [ Transcript
 				show: 'randinpsequence: ';
 				show: randinpsequence;
 				show: ', isfinal : ';
@@ -228,7 +227,7 @@ FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
 				show: ', isrecognized : ';
 				show: fsm isrecognized;
 				cr;
-				cr."
+				cr.
 			^ true ] ].
 	^ false
 ]
