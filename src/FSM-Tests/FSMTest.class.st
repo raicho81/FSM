@@ -1,3 +1,6 @@
+"
+This class contains initialization tests and input sequences of FSMInputSymbol's tests for the FSM matching/not matching the input sequence etc.
+"
 Class {
 	#name : #FSMTest,
 	#superclass : #TestCase,
@@ -69,7 +72,7 @@ FSMTest >> testInitializationIsOk [
 { #category : #tests }
 FSMTest >> testInputSequence1 [
 
-	fsm resetFSM.
+	fsm resetFSMState.
 	({ 'a'. 'b'. 'a'. 'a'. 'a' } collect: [ :eachSymbol | 
 		 FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
 		:eachFSMInputSymbol | fsm evalInpSymb: eachFSMInputSymbol ].
@@ -81,7 +84,7 @@ FSMTest >> testInputSequence1 [
 { #category : #tests }
 FSMTest >> testInputSequence2 [
 
-	fsm resetFSM.
+	fsm resetFSMState.
 	({ 'a'. 'b'. 'a'. 'a'. 'a'. 'c' } collect: [ :eachSymbol | 
 		 FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
 		:eachFSMInputSymbol | fsm evalInpSymb: eachFSMInputSymbol ].
@@ -93,7 +96,7 @@ FSMTest >> testInputSequence2 [
 { #category : #tests }
 FSMTest >> testInputSequence3 [
 
-	fsm resetFSM.
+	fsm resetFSMState.
 	({ 'a'. 'b'. 'a'. 'a'. 'a'. 'c'. 'c'. 'f'. 'd' } collect: [ 
 		 :eachSymbol | FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
 		:eachFSMInputSymbol | fsm evalInpSymb: eachFSMInputSymbol ].
@@ -105,7 +108,7 @@ FSMTest >> testInputSequence3 [
 { #category : #tests }
 FSMTest >> testInputSequence4 [
 
-	fsm resetFSM.
+	fsm resetFSMState.
 	({ 'a'. 'b'. 'a'. 'a'. 'a'. 'a'. 'a'. 'a'. 'a' } collect: [ 
 		 :eachSymbol | FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
 		:eachFSMInputSymbol | fsm evalInpSymb: eachFSMInputSymbol ].
@@ -117,7 +120,7 @@ FSMTest >> testInputSequence4 [
 { #category : #tests }
 FSMTest >> testInputSequence5 [
 
-	fsm resetFSM.
+	fsm resetFSMState.
 	({ 'b'. 'd'. 'e'. 'a'. 'a' } collect: [ :eachSymbol | 
 		 FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
 		:eachFSMInputSymbol | fsm evalInpSymb: eachFSMInputSymbol ].
@@ -129,7 +132,7 @@ FSMTest >> testInputSequence5 [
 { #category : #tests }
 FSMTest >> testInputSequence6 [
 
-	fsm resetFSM.
+	fsm resetFSMState.
 	({ 'b'. 'd'. 'e'. 'f'. 'g'. 'b'. 'd'. 'e'. 'a'. 'a' } collect: [ 
 		 :eachSymbol | FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
 		:eachFSMInputSymbol | fsm evalInpSymb: eachFSMInputSymbol ].
@@ -141,11 +144,78 @@ FSMTest >> testInputSequence6 [
 { #category : #tests }
 FSMTest >> testInputSequence7 [
 
-	fsm resetFSM.
+	fsm resetFSMState.
 	({ 'b'. 'd'. 'e'. 'f'. 'g'. 'b'. 'd'. 'e'. 'a'. 'a'. 'f' } collect: [ 
 		 :eachSymbol | FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
 		:eachFSMInputSymbol | fsm evalInpSymb: eachFSMInputSymbol ].
 	self
 		assert: fsm isfinal;
 		assert: fsm isrecognized not
+]
+
+{ #category : #tests }
+FSMTest >> testMatchRandomInputSequenceWithLength10 [
+
+	^ self testMatchRandomInputSequenceWithLength: 10
+]
+
+{ #category : #tests }
+FSMTest >> testMatchRandomInputSequenceWithLength4 [
+
+	^ self testMatchRandomInputSequenceWithLength: 4
+]
+
+{ #category : #tests }
+FSMTest >> testMatchRandomInputSequenceWithLength5 [
+
+	^ self testMatchRandomInputSequenceWithLength: 5
+]
+
+{ #category : #tests }
+FSMTest >> testMatchRandomInputSequenceWithLength6 [
+
+	^ self testMatchRandomInputSequenceWithLength:  6
+]
+
+{ #category : #tests }
+FSMTest >> testMatchRandomInputSequenceWithLength7 [
+
+	^ self testMatchRandomInputSequenceWithLength: 7
+]
+
+{ #category : #tests }
+FSMTest >> testMatchRandomInputSequenceWithLength8 [
+
+	^ self testMatchRandomInputSequenceWithLength: 8
+]
+
+{ #category : #tests }
+FSMTest >> testMatchRandomInputSequenceWithLength9 [
+
+	^ self testMatchRandomInputSequenceWithLength: 9
+]
+
+{ #category : #tests }
+FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
+
+	[ true ] whileTrue: [ 
+		| randinpsequence |
+		randinpsequence := OrderedCollection new.
+		fsm resetFSMState.
+		1 to: aRandomSequenceLength do: [ :x | 
+			randinpsequence add: (fsm inputalphabet asOrderedCollection at:
+					 fsm inputalphabet size atRandom) ].
+		randinpsequence do: [ :eachFSMInputSymbol | 
+			fsm evalInpSymb: eachFSMInputSymbol ].
+		fsm isrecognized ifTrue: [ 
+			Transcript
+				show: 'randinpsequence: ';
+				show: randinpsequence;
+				show: ', isfinal : ';
+				show: fsm isfinal;
+				show: ', isrecognized : ';
+				show: fsm isrecognized;
+				cr;
+				cr.
+			^ self ] ]
 ]

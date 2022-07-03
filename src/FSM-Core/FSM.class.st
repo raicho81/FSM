@@ -199,7 +199,7 @@ FSM >> outputalphabet: aSet [
 ]
 
 { #category : #initialization }
-FSM >> resetFSM [
+FSM >> resetFSMState [
 
 	curstate := startsymbol.
 		inputSequence := OrderedCollection new
@@ -213,7 +213,7 @@ FSM >> runWithArray: aCollection [
 		self evalInpSymb: inputsymb.
 		self isfinal ifTrue: [ 
 			self fireEndStateEvent.
-			self isrecognized ifFalse: [ self resetFSM ] ] ]
+			self isrecognized ifFalse: [ self resetFSMState ] ] ]
 ]
 
 { #category : #accessing }
