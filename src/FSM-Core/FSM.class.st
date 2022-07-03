@@ -105,22 +105,17 @@ FSM >> endstatesAdd: aFSMState [
 { #category : #compute }
 FSM >> evalInpSymb: aFSMInputSymbol [
 
-	| assoc state endstate |
+	| assoc |
 	self validateParams.
-
-	assoc := Association
-		         key: aFSMInputSymbol mnemonic
-		         value: curstate mnemonic.
-	(state := transitions at: assoc)
-		ifNotNil: [ 
-			self curstate: state.
-			endstate := endstates at: (FSMState withMnemonic: state).
-			endstate ifNotNil: [ 
-				self fireEndStateEvent.
-				self resetFSM ] ]
-		ifNil: [ self curstate: (FSMState withMnemonic: 'S9').
-				self fireEndStateEvent.
-				self resetFSM ]
+	assoc := Association key: curstate value: aFSMInputSymbol.
+	(transitions keys includes: assoc)
+		ifTrue: [ 
+			self curstate: (transitions at: assoc).
+			self isfinal ifTrue: [ self fireEndStateEvent ] ]
+		ifFalse: [ 
+			self curstate: self endstate_unrecognized.
+			self fireEndStateEvent.
+			self resetFSM ]
 ]
 
 { #category : #'events-triggering' }
@@ -224,7 +219,15 @@ FSM >> transitionsAdd: aFSMTransition [
 FSM >> validateParams [
 
 	"Do some basic validation of the input data."
-	( endstates size <= 0 ) ifTrue: [ self error: 'Empty end/final tsates set. No need to run infinitely right ;) Aborting ...' ].
-	( startsymbol = FSMState new ) ifFalse: [ self error: 'Wrong start state. Shuld be "S0". FSM wasnt reset? Aborting ...' ].
-	( inputalphabet size <= 0 ) ifTrue: [ self error: 'Empty inputalphabet set. No need to run infinitely right ;) Aborting ...' ].
+
+	endstates size <= 0 ifTrue: [ 
+		self error:
+			'Empty end/final tsates set. No need to run infinitely right ;) Aborting ...' ].
+	startsymbol = FSMState new ifFalse: [ 
+		self error:
+			'Wrong start state. Shuld be "S0". FSM wasnt reset? Aborting ...' ].
+	inputalphabet size <= 0 ifTrue: [ 
+		self error:
+			'Empty inputalphabet set. No need to run infinitely right ;) Aborting ...' ].
+	endstate_unrecognized ifNil: [ self error: 'The intercept state (unrecognized state) must be set. Aborting ...' ]
 ]
