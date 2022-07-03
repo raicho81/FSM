@@ -192,7 +192,7 @@ FSMTest >> testMatchRandomInputSequenceWithLength8 [
 { #category : #tests }
 FSMTest >> testMatchRandomInputSequenceWithLength9 [
 
-	^ self testMatchRandomInputSequenceWithLength: 9
+	^ self assert: (self testMatchRandomInputSequenceWithLength: 9)
 ]
 
 { #category : #tests }
