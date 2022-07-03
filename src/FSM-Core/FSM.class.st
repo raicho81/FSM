@@ -106,22 +106,18 @@ FSM >> endstatesAdd: aFSMState [
 FSM >> evalInpSymb: aFSMInputSymbol [
 
 	| assoc |
-	inputSequence add: aFSMInputSymbol .
+	inputSequence add: aFSMInputSymbol.
 	assoc := Association key: curstate value: aFSMInputSymbol.
 	(transitions keys includes: assoc)
 		ifTrue: [ 
-			self curstate: (transitions at: assoc).
-			self isfinal ifTrue: [ self fireEndStateEvent ] ]
+			self curstate: (transitions at: assoc) ]
 		ifFalse: [ 
-			self curstate: self endstate_unrecognized.
-			self fireEndStateEvent.
-			self resetFSM ]
+			self curstate: self endstate_unrecognized ]
 ]
 
 { #category : #'events-triggering' }
 FSM >> fireEndStateEvent [
-
-	endStateEvent update: { 
+	endStateEvent value: { 
 			('inputSequence' -> inputSequence).
 			('isfinal' -> self isfinal).
 			('isrecognized' -> self isrecognized) }
@@ -134,9 +130,9 @@ FSM >> initialize [
 	outputalphabet := FSMOutputAlphabet new.
 	startsymbol := FSMState new. "By convention the non-terminals are all *UPPERCASE* followed by their respective index in the non-terminals set. The start symbol is S0."
 	curstate := startsymbol.
-	endstates := FSMEndStates  new.
+	endstates := FSMEndStates new.
 	transitions := FSMTransitions new.
-	endStateEvent := WeakMessageSend new.
+	endStateEvent := WeakMessageSend new selector: #update.
 	inputSequence := OrderedCollection new
 ]
 
@@ -196,7 +192,11 @@ FSM >> resetFSM [
 FSM >> runWithArray: aCollection [
 
 	self validateParams.
-	aCollection do: [ :inputsymb | self evalInpSymb: inputsymb ]
+	aCollection do: [ :inputsymb | 
+		self evalInpSymb: inputsymb.
+		self isfinal ifTrue: [ 
+			self fireEndStateEvent.
+			self isrecognized ifFalse: [ self resetFSM ] ] ]
 ]
 
 { #category : #accessing }
