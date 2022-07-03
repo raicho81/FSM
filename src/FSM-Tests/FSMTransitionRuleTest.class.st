@@ -9,6 +9,5 @@ FSMTransitionRuleTest >> testInitializationIsOk [
 
 	| fsmtr |
 	fsmtr := FSMTransitionRule new.
-	self assert: fsmtr key equals: ''.
-	self assert: fsmtr value equals: ''
+	self assert: fsmtr equals: FSMTransitionRule new.
 ]

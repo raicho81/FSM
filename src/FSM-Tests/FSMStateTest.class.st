@@ -7,5 +7,10 @@ Class {
 { #category : #tests }
 FSMStateTest >> testInitializationIsOk [
 
-	self assert: FSMState new equals: FSMState new
+	| testmnemonics |
+	testmnemonics := { 'a'. 'b'. 'c'. 'd'. 'e'. 'f' }.
+	testmnemonics do: [ :m | 
+		self
+			assert: (FSMState withMnemonic: m)
+			equals: (FSMState withMnemonic: m) ]
 ]
