@@ -18,6 +18,10 @@ FSMTransitionsRulesLUTTest >> testInitializationIsOk [
 	fsmtrans add: t2.
 	fsmtrans add: t3.
 
+	self assert: (fsmtrans includes: t1 value).
+	self assert: (fsmtrans includes: t2 value).
+	self assert: (fsmtrans includes: t3 value).
+
 	self assert: (fsmtrans at: t1 key) equals: t1 value.
 	self assert: (fsmtrans at: t2 key) equals: t2 value.
 	self assert: (fsmtrans at: t3 key) equals: t3 value.
