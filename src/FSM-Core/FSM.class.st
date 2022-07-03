@@ -220,7 +220,7 @@ FSM >> transitionsAdd: aFSMTransition [
 	self transitions add: aFSMTransition
 ]
 
-{ #category : #initialization }
+{ #category : #validation }
 FSM >> validateParams [
 
 	"Do some basic validation of the input data."
