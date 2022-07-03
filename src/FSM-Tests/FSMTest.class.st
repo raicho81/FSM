@@ -25,7 +25,7 @@ FSMTest >> testInitializationIsOk [
 { #category : #tests }
 FSMTest >> testWorking [
 
-	| fsm randomsymbols testinput |
+	| fsm testinput |
 	fsm := FSM new.
 	{ 'a'. 'b'. 'c'. 'd'. 'e' } do: [ :each | 
 		fsm inputAlphabetAdd: (FSMInputSymbol withMnemonic: each) ].
@@ -60,15 +60,22 @@ FSMTest >> testWorking [
 	I guess the next step is to implement this paper: https://en.wikipedia.org/wiki/Thompson%27s_construction 
 	in order to be able to read Regular Expressions and construct FSMs dynamically from them :)"
 	fsm dump. "Dump FSM Structures to console (Transcript in Pharo/Smalltalk/Sqeak)"
-	"Test with real input".
+
+	"Test with real input"
 	testinput := { 'a'. 'b'. 'a'. 'a'. 'a' }.
 	testinput := testinput collect: [ :each | 
 		             FSMInputSymbol withMnemonic: each ].
 	fsm runWithArray: testinput.
+	self assert: fsm isfinal.
 	self assert: fsm isrecognized.
-	fsm dump.
-	randomsymbols := OrderedCollection new: 5000.
-	randomsymbols := randomsymbols collect: [ :_ | "Init random array with input alphabet symbols for testing the FSM." 
-		                 fsm inputalphabet at:
-			                 fsm inputalphabet size atRandom ]
+
+	fsm resetFSM.
+	testinput := { 'a'. 'b'. 'a'. 'a'. 'a'. 'c' }.
+	testinput := testinput collect: [ :each | 
+		             FSMInputSymbol withMnemonic: each ].
+	fsm runWithArray: testinput.
+	self assert: fsm isfinal not.
+	self assert: fsm isrecognized not.
+
+	fsm dump
 ]
