@@ -106,6 +106,7 @@ FSM >> endstatesAdd: aFSMState [
 FSM >> evalInpSymb: aFSMInputSymbol [
 
 	| assoc |
+	inputSequence add: aFSMInputSymbol .
 	assoc := Association key: curstate value: aFSMInputSymbol.
 	(transitions keys includes: assoc)
 		ifTrue: [ 
@@ -120,7 +121,10 @@ FSM >> evalInpSymb: aFSMInputSymbol [
 { #category : #'events-triggering' }
 FSM >> fireEndStateEvent [
 
-	endStateEvent update: { (curstate asString ,':', endstates asString) }
+	endStateEvent update: { 
+			('inputSequence' -> inputSequence).
+			('isfinal' -> self isfinal).
+			('isrecognized' -> self isrecognized) }
 ]
 
 { #category : #initialization }
@@ -161,7 +165,7 @@ FSM >> isfinal [
 { #category : #testing }
 FSM >> isrecognized [
 
-	^ self isfinal and: (self endstates includes: self curstate)
+	^ self isfinal and: self curstate ~= self endstate_unrecognized
 ]
 
 { #category : #accessing }
@@ -185,6 +189,7 @@ FSM >> outputalphabet: aSet [
 FSM >> resetFSM [
 
 	curstate := startsymbol.
+		inputSequence := OrderedCollection new
 ]
 
 { #category : #run }
@@ -215,7 +220,7 @@ FSM >> transitionsAdd: aFSMTransition [
 	self transitions add: aFSMTransition
 ]
 
-{ #category : #testing }
+{ #category : #initialization }
 FSM >> validateParams [
 
 	"Do some basic validation of the input data."
