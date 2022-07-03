@@ -217,5 +217,6 @@ FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
 				show: fsm isrecognized;
 				cr;
 				cr.
-			^ self ] ]
+			^ true ] ].
+	^ false
 ]
