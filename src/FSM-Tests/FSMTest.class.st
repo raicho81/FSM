@@ -214,7 +214,7 @@ FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
 		randinpsequence do: [ :eachFSMInputSymbol | 
 			fsm evalInpSymb: eachFSMInputSymbol ].
 		fsm isrecognized ifTrue: [ 
-			Transcript
+			"Transcript
 				show: 'randinpsequence: ';
 				show: randinpsequence;
 				show: ', isfinal : ';
@@ -222,7 +222,7 @@ FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
 				show: ', isrecognized : ';
 				show: fsm isrecognized;
 				cr;
-				cr.
+				cr."
 			^ true ] ].
 	^ false
 ]
