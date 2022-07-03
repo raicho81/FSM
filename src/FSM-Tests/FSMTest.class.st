@@ -45,6 +45,7 @@ FSMTest >> setUp [
 	https://en.wikipedia.org/wiki/Regular_language
 	I guess the next step is to implement this paper: https://en.wikipedia.org/wiki/Thompson%27s_construction 
 	in order to be able to read Regular Expressions and construct FSMs dynamically from them :)"
+	fsm validateParams.
 	fsm dump "Dump FSM Structures to console (Transcript in Pharo/Smalltalk/Sqeak)"
 ]
 
@@ -65,18 +66,18 @@ FSMTest >> testInitializationIsOk [
 { #category : #tests }
 FSMTest >> testWorking [
 
-	({ 'a'. 'b'. 'a'. 'a'. 'a' } collect: [ :each | 
-		 FSMInputSymbol withMnemonic: each ]) do: [ :each | 
-		fsm evalInpSymb: each ].
+	({ 'a'. 'b'. 'a'. 'a'. 'a' } collect: [ :eachSymbol | 
+		 FSMInputSymbol withMnemonic: eachSymbol ]) do: [ :eachFSMInputSymbol | 
+		fsm evalInpSymb: eachFSMInputSymbol ].
 	fsm dump.
 	self
 		assert: fsm isfinal;
 		assert: fsm isrecognized.
-	
+
 	fsm resetFSM.
-	({ 'a'. 'b'. 'a'. 'a'. 'a'. 'c' } collect: [ :each | 
-		 FSMInputSymbol withMnemonic: each ]) do: [ :each | 
-		fsm evalInpSymb: each ].
+	({ 'a'. 'b'. 'a'. 'a'. 'a'. 'c' } collect: [ :eachSymbol | 
+		 FSMInputSymbol withMnemonic: eachSymbol ]) do: [ :eachFSMInputSymbol | 
+		fsm evalInpSymb: eachFSMInputSymbol ].
 	fsm dump.
 	self
 		assert: fsm isfinal;
