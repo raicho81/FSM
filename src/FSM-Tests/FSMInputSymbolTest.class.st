@@ -5,9 +5,10 @@ Class {
 }
 
 { #category : #tests }
-FSMInputSymbolTest >> testInitializationIsOk [ 
-	|fsminsymb|
-	fsminsymb := FSMInputSymbol withMnemonic: 'a'.
-	self assert: fsminsymb mnemonic equals: 'a'.
+FSMInputSymbolTest >> testInitializationIsOk [
 
+	| fsminsymb |
+	fsminsymb := FSMInputSymbol withMnemonic: 'a'.
+	self assert: fsminsymb equals: (FSMInputSymbol withMnemonic: 'a').
+	self assert: fsminsymb ~= (FSMInputSymbol withMnemonic: 'b')
 ]

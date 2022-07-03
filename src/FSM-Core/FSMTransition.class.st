@@ -8,12 +8,12 @@ Class {
 }
 
 { #category : #'instance creation' }
-FSMTransition class >> withState: aState withInputSymbol: aInputSymbol withNewState: aNewState [
+FSMTransition class >> withState: aFSMState withInputSymbol: aFSMInputSymbol withNewState: aNewFSMState [
 
 	| instance |
 	instance := self new.
-	instance key: aState -> aInputSymbol.
-	instance value: aNewState.
+	instance key: aFSMState -> aFSMInputSymbol.
+	instance value: aNewFSMState.
 	^ instance
 ]
 

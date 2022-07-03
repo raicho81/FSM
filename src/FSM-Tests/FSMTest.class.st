@@ -60,7 +60,10 @@ FSMTest >> testInitializationIsOk [
 	self assert: fsmempty startstate equals: FSMState new.
 	self assert: fsmempty curstate equals: FSMState new.
 	self assert: fsmempty transitions isEmpty.
-
+	self assert: fsmempty endstate_unrecognized equals: FSMState new.
+	self assert: fsmempty isfinal not.
+	self assert: fsmempty isrecognized not .
+	self assert: fsmempty inputSequence isEmpty
 ]
 
 { #category : #tests }

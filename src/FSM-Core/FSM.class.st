@@ -153,6 +153,12 @@ FSM >> inputAlphabetAdd: aFSMInputSymbol [
 ]
 
 { #category : #accessing }
+FSM >> inputSequence [
+
+	^ inputSequence
+]
+
+{ #category : #accessing }
 FSM >> inputalphabet [
 	^ inputalphabet
 ]

@@ -7,7 +7,5 @@ Class {
 { #category : #tests }
 FSMStateTest >> testInitializationIsOk [
 
-	| fsmstate |
-	fsmstate := FSMState withMnemonic: 'S0'.
-	self assert: fsmstate mnemonic equals: 'S0'.
+	self assert: FSMState new equals: FSMState new
 ]
