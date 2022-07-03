@@ -33,7 +33,7 @@ FSMTest >> setUp [
 		{ 'S7'. 'e'. 'S4' }.
 		{ 'S8'. 'a'. 'S8' }.
 		{ 'S8'. 'b'. 'S8' } } do: [ :each | 
-		fsm transitionsAdd: (FSMTransition withTriplet: each) ].
+		fsm transitionsAdd: (FSMTransitionRule withTriplet: each) ].
 	{ 'S8'. 'S5'. 'S9' } do: [ :each | 
 		fsm endstatesAdd: (FSMState withMnemonic: each) ].
 	fsm endstate_unrecognized: (FSMState withMnemonic: 'S9').

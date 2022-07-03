@@ -2,13 +2,13 @@
 FSMTRansition - a class representing a transition of the form S'->a'->S'' directly inheriting from Association for more convenience.
 "
 Class {
-	#name : #FSMTransition,
+	#name : #FSMTransitionRule,
 	#superclass : #Association,
 	#category : #'FSM-Core-Base'
 }
 
 { #category : #'instance creation' }
-FSMTransition class >> withState: aFSMState withInputSymbol: aFSMInputSymbol withNewState: aNewFSMState [
+FSMTransitionRule class >> withState: aFSMState withInputSymbol: aFSMInputSymbol withNewState: aNewFSMState [
 
 	| instance |
 	instance := self new.
@@ -18,7 +18,7 @@ FSMTransition class >> withState: aFSMState withInputSymbol: aFSMInputSymbol wit
 ]
 
 { #category : #'instance creation' }
-FSMTransition class >> withTriplet: aTriplet [
+FSMTransitionRule class >> withTriplet: aTriplet [
 
 	| instance |
 	instance := self
@@ -29,7 +29,7 @@ FSMTransition class >> withTriplet: aTriplet [
 ]
 
 { #category : #initialization }
-FSMTransition >> initialize [
+FSMTransitionRule >> initialize [
 
 	key := ''.
 	value := ''

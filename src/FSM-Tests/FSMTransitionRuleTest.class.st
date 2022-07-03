@@ -1,14 +1,14 @@
 Class {
-	#name : #FSMTransitionTest,
+	#name : #FSMTransitionRuleTest,
 	#superclass : #TestCase,
 	#category : #'FSM-Tests-Base'
 }
 
 { #category : #tests }
-FSMTransitionTest >> testInitializationIsOk [
+FSMTransitionRuleTest >> testInitializationIsOk [
 
 	| fsmtr |
-	fsmtr := FSMTransition new.
+	fsmtr := FSMTransitionRule new.
 	self assert: fsmtr key equals: ''.
 	self assert: fsmtr value equals: ''
 ]
