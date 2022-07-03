@@ -19,20 +19,22 @@ FSMTest >> setUp [
 		fsm outputAlphabetAdd: (FSMState withMnemonic: each) ].
 	{ 
 		{ 'S0'. 'a'. 'S1' }.
-		{ 'S1'. 'b'. 'S3' }.
 		{ 'S0'. 'b'. 'S2' }.
+		{ 'S1'. 'b'. 'S3' }.
 		{ 'S2'. 'd'. 'S7' }.
-		{ 'S7'. 'a'. 'S8' }.
-		{ 'S8'. 'a'. 'S8' }.
-		{ 'S8'. 'b'. 'S8' }.
-		{ 'S7'. 'e'. 'S4' }.
+		{ 'S3'. 'a'. 'S5' }.
 		{ 'S4'. 'b'. 'S2' }.
 		{ 'S4'. 'f'. 'S6' }.
+		{ 'S4'. 'a'. 'S3' }.
+		{ 'S5'. 'a'. 'S5' }.
 		{ 'S6'. 'g'. 'S4' }.
 		{ 'S6'. 'g'. 'S4' }.
-		{ 'S4'. 'b'. 'S5' }.
-		{ 'S3'. 'a'. 'S5' }.
-		{ 'S5'. 'a'. 'S5' } } do: [ :each | 
+		{ 'S7'. 'a'. 'S8' }.
+		{ 'S7'. 'e'. 'S4' }.
+		{ 'S8'. 'a'. 'S8' }.
+		{ 'S8'. 'b'. 'S8' }.
+
+ } do: [ :each | 
 		fsm transitionsAdd: (FSMTransition withTriplet: each) ].
 	{ 'S8'. 'S5'. 'S9' } do: [ :each | 
 		fsm endstatesAdd: (FSMState withMnemonic: each) ].
@@ -81,11 +83,62 @@ FSMTest >> testInputSequence1 [
 FSMTest >> testInputSequence2 [
 
 	fsm resetFSM.
-	({ 'a'. 'b'. 'a'. 'a'. 'a'. 'c' .'d' } collect: [ :eachSymbol | 
+	({ 'a'. 'b'. 'a'. 'a'. 'a'. 'c'} collect: [ :eachSymbol | 
 		 FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
 		:eachFSMInputSymbol | fsm evalInpSymb: eachFSMInputSymbol ].
 	fsm dump.
 	self
 		assert: fsm isfinal;
 		assert: fsm isrecognized not
+]
+
+{ #category : #tests }
+FSMTest >> testInputSequence3 [
+
+	fsm resetFSM.
+	({ 'a'. 'b'. 'a'. 'a'. 'a'. 'c'. 'c'. 'f'. 'd' } collect: [ :eachSymbol | 
+		 FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
+		:eachFSMInputSymbol | fsm evalInpSymb: eachFSMInputSymbol ].
+	fsm dump.
+	self
+		assert: fsm isfinal;
+		assert: fsm isrecognized not
+]
+
+{ #category : #tests }
+FSMTest >> testInputSequence4 [
+
+	fsm resetFSM.
+	({ 'a'. 'b'. 'a'. 'a'. 'a'. 'a'. 'a'. 'a'. 'a' } collect: [ :eachSymbol | FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
+		:eachFSMInputSymbol | fsm evalInpSymb: eachFSMInputSymbol ].
+	fsm dump.
+	self
+		assert: fsm isfinal;
+		assert: fsm isrecognized
+]
+
+{ #category : #tests }
+FSMTest >> testInputSequence5 [
+
+	fsm resetFSM.
+	({ 'b'. 'd'. 'e'. 'a'. 'a' } collect: [ 
+		 :eachSymbol | FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
+		:eachFSMInputSymbol | fsm evalInpSymb: eachFSMInputSymbol ].
+	fsm dump.
+	self
+		assert: fsm isfinal;
+		assert: fsm isrecognized
+]
+
+{ #category : #tests }
+FSMTest >> testInputSequence6 [
+
+	fsm resetFSM.
+	({ 'b'. 'd'. 'e'. 'f'. 'g'. 'b'. 'd'. 'e'. 'a'. 'a' } collect: [ :eachSymbol | 
+		 FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
+		:eachFSMInputSymbol | fsm evalInpSymb: eachFSMInputSymbol ].
+	fsm dump.
+	self
+		assert: fsm isfinal;
+		assert: fsm isrecognized
 ]
