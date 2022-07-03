@@ -25,7 +25,7 @@ FSMTest >> testInitializationIsOk [
 { #category : #tests }
 FSMTest >> testWorking [
 
-	| fsm testinput |
+	| fsm |
 	fsm := FSM new.
 	{ 'a'. 'b'. 'c'. 'd'. 'e' } do: [ :each | 
 		fsm inputAlphabetAdd: (FSMInputSymbol withMnemonic: each) ].
@@ -62,18 +62,15 @@ FSMTest >> testWorking [
 	fsm dump. "Dump FSM Structures to console (Transcript in Pharo/Smalltalk/Sqeak)"
 
 	"Test with real input"
-	testinput := { 'a'. 'b'. 'a'. 'a'. 'a' }.
-	testinput := testinput collect: [ :each | 
-		             FSMInputSymbol withMnemonic: each ].
-	fsm runWithArray: testinput.
+	fsm runWithArray: ({ 'a'. 'b'. 'a'. 'a'. 'a' } collect: [ :each | 
+			 FSMInputSymbol withMnemonic: each ]).
 	self assert: fsm isfinal.
 	self assert: fsm isrecognized.
 
 	fsm resetFSM.
-	testinput := { 'a'. 'b'. 'a'. 'a'. 'a'. 'c' }.
-	testinput := testinput collect: [ :each | 
-		             FSMInputSymbol withMnemonic: each ].
-	fsm runWithArray: testinput.
+	fsm runWithArray:
+		({ 'a'. 'b'. 'a'. 'a'. 'a'. 'c' } collect: [ :each | 
+			 FSMInputSymbol withMnemonic: each ]).
 	self assert: fsm isfinal not.
 	self assert: fsm isrecognized not.
 
