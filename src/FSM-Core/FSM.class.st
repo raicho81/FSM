@@ -11,9 +11,10 @@ Class {
 		'endstates',
 		'curstate',
 		'transitions',
-		'endStateEvent'
+		'endStateEvent',
+		'inputSequence'
 	],
-	#category : #'FSM-Core'
+	#category : #'FSM-Core-Base'
 }
 
 { #category : #accessing }
@@ -121,11 +122,12 @@ FSM >> initialize [
 
 	inputalphabet := FSMInputAlphabet new.
 	outputalphabet := FSMOutputAlphabet new.
-	startsymbol := FSMState withMnemonic: 'S0' withValue: 'S0'. "By convention the non-terminals are all *UPPERCASE* followed by their respective index in the non-terminals set. The start symbol is S0."
+	startsymbol := FSMState new. "By convention the non-terminals are all *UPPERCASE* followed by their respective index in the non-terminals set. The start symbol is S0."
 	curstate := startsymbol.
 	endstates := FSMOutputAlphabet new.
 	transitions := FSMTransitions new.
 	endStateEvent := WeakMessageSend new.
+	inputSequence := OrderedCollection new.
 ]
 
 { #category : #accessing }

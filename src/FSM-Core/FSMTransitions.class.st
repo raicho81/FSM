@@ -4,7 +4,7 @@ FSMTransitions - Dictionary holding the state transitions of the FSM.
 Class {
 	#name : #FSMTransitions,
 	#superclass : #Dictionary,
-	#category : #'FSM-Core'
+	#category : #'FSM-Core-Base'
 }
 
 { #category : #printing }

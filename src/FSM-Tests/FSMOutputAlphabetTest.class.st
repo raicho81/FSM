@@ -1,7 +1,7 @@
 Class {
 	#name : #FSMOutputAlphabetTest,
 	#superclass : #TestCase,
-	#category : #'FSM-Tests'
+	#category : #'FSM-Tests-Base'
 }
 
 { #category : #tests }

@@ -4,7 +4,7 @@ FSMTRansition - a class representing a transition of the form S'->a'->S'' direct
 Class {
 	#name : #FSMTransition,
 	#superclass : #Association,
-	#category : #'FSM-Core'
+	#category : #'FSM-Core-Base'
 }
 
 { #category : #'instance creation' }

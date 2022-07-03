@@ -4,7 +4,7 @@ Another Set this time representing the input alphabet made up from FSMInputSymbo
 Class {
 	#name : #FSMInputAlphabet,
 	#superclass : #Set,
-	#category : #'FSM-Core'
+	#category : #'FSM-Core-Base'
 }
 
 { #category : #initialization }

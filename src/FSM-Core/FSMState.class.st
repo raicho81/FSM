@@ -8,7 +8,7 @@ Class {
 		'mnemonic',
 		'symbolvalue'
 	],
-	#category : #'FSM-Core'
+	#category : #'FSM-Core-Base'
 }
 
 { #category : #'instance creation' }
