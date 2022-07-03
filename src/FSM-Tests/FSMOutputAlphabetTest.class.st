@@ -5,8 +5,10 @@ Class {
 }
 
 { #category : #tests }
-FSMOutputAlphabetTest >> testInitializationIsOk [ 
-	|fsmoutpab|
+FSMOutputAlphabetTest >> testInitializationIsOk [
+
+	| fsmoutpab |
 	fsmoutpab := FSMOutputAlphabet new.
-	self assert: fsmoutpab isEmpty.
+	self assert: fsmoutpab notNil .
+	self assert: fsmoutpab isEmpty
 ]

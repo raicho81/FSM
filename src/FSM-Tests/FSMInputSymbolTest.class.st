@@ -20,11 +20,13 @@ FSMInputSymbolTest >> testComparisonsOK [
 	self assert: fsminsymb ~= (FSMInputSymbol withMnemonic: 'd').
 	self assert: fsminsymb ~= (FSMInputSymbol withMnemonic: 'e').
 	self assert: fsminsymb ~= (FSMInputSymbol withMnemonic: 'f').
-	self assert: fsminsymb ~= FSMInputSymbol new
+	self assert: fsminsymb ~= FSMInputSymbol new.
+		self assert: FSMInputSymbol new equals: FSMInputSymbol new
 ]
 
 { #category : #tests }
 FSMInputSymbolTest >> testInitializationIsOk [
 
-	self assert: FSMInputSymbol new equals: FSMInputSymbol new
+	self assert: FSMInputSymbol new notNil.
+
 ]
