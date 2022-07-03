@@ -1,5 +1,5 @@
 "
-This class contains initialization tests and input sequences of FSMInputSymbol's tests for the FSM matching/not matching the input sequence etc.
+This class contains initialization tests and input sequences of FSMInputSymbol's tests for the FSM matching/not matching the input sequence including randomly generated input sequences.
 "
 Class {
 	#name : #FSMTest,
