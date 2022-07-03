@@ -60,11 +60,12 @@ FSMTest >> testWorking [
 	I guess the next step is to implement this paper: https://en.wikipedia.org/wiki/Thompson%27s_construction 
 	in order to be able to read Regular Expressions and construct FSMs dynamically from them :)"
 	fsm dump. "Dump FSM Structures to console (Transcript in Pharo/Smalltalk/Sqeak)"
+	"Test with real input".
 	testinput := { 'a'. 'b'. 'a'. 'a'. 'a' }.
 	testinput := testinput collect: [ :each | 
 		             FSMInputSymbol withMnemonic: each ].
 	fsm runWithArray: testinput.
-	self assert: fsm isrecognized equals: true .
+	self assert: fsm isrecognized.
 	fsm dump.
 	randomsymbols := OrderedCollection new: 5000.
 	randomsymbols := randomsymbols collect: [ :_ | "Init random array with input alphabet symbols for testing the FSM." 
