@@ -106,7 +106,6 @@ FSM >> endstatesAdd: aFSMState [
 FSM >> evalInpSymb: aFSMInputSymbol [
 
 	| assoc |
-	self validateParams.
 	assoc := Association key: curstate value: aFSMInputSymbol.
 	(transitions keys includes: assoc)
 		ifTrue: [ 
@@ -191,6 +190,7 @@ FSM >> resetFSM [
 { #category : #run }
 FSM >> runWithArray: aCollection [
 
+	self validateParams.
 	aCollection do: [ :inputsymb | self evalInpSymb: inputsymb ]
 ]
 
@@ -215,7 +215,7 @@ FSM >> transitionsAdd: aFSMTransition [
 	self transitions add: aFSMTransition
 ]
 
-{ #category : #initialization }
+{ #category : #testing }
 FSM >> validateParams [
 
 	"Do some basic validation of the input data."
