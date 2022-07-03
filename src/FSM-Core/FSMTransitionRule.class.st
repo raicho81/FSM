@@ -31,6 +31,6 @@ FSMTransitionRule class >> withTriplet: aTriplet [
 { #category : #initialization }
 FSMTransitionRule >> initialize [
 
-	key := ''.
+	key := ''->''.
 	value := ''
 ]
