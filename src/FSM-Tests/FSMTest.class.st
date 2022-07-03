@@ -156,37 +156,37 @@ FSMTest >> testInputSequence7 [
 { #category : #tests }
 FSMTest >> testMatchRandomInputSequenceWithLength10 [
 
-	^ self testMatchRandomInputSequenceWithLength: 10
+	^ self assert: (self testMatchRandomInputSequenceWithLength: 10)
 ]
 
 { #category : #tests }
 FSMTest >> testMatchRandomInputSequenceWithLength4 [
 
-	^ self testMatchRandomInputSequenceWithLength: 4
+	^ self assert: (self testMatchRandomInputSequenceWithLength: 4)
 ]
 
 { #category : #tests }
 FSMTest >> testMatchRandomInputSequenceWithLength5 [
 
-	^ self testMatchRandomInputSequenceWithLength: 5
+	^ self assert: (self testMatchRandomInputSequenceWithLength: 5)
 ]
 
 { #category : #tests }
 FSMTest >> testMatchRandomInputSequenceWithLength6 [
 
-	^ self testMatchRandomInputSequenceWithLength:  6
+	^ self assert: (self testMatchRandomInputSequenceWithLength: 6)
 ]
 
 { #category : #tests }
 FSMTest >> testMatchRandomInputSequenceWithLength7 [
 
-	^ self testMatchRandomInputSequenceWithLength: 7
+	^ self assert: (self testMatchRandomInputSequenceWithLength: 7)
 ]
 
 { #category : #tests }
 FSMTest >> testMatchRandomInputSequenceWithLength8 [
 
-	^ self testMatchRandomInputSequenceWithLength: 8
+	^ self assert: (self testMatchRandomInputSequenceWithLength: 8)
 ]
 
 { #category : #tests }
