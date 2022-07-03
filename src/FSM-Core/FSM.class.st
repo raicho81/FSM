@@ -141,7 +141,7 @@ FSM >> initialize [
 	startsymbol := FSMState new. "By convention the non-terminals are all *UPPERCASE* followed by their respective index in the non-terminals set. The start symbol is S0."
 	curstate := startsymbol.
 	endstates := FSMEndStates new.
-	transitions := FSMTransitionsRules new.
+	transitions := FSMTransitionsRulesLUT new.
 	endStateEvent := WeakMessageSend new selector: #update.
 	inputSequence := OrderedCollection new.
 	endstate_unrecognized := FSMState new.

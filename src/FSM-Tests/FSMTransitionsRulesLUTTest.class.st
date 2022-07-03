@@ -1,14 +1,14 @@
 Class {
-	#name : #FSMTransitionsRulesTest,
+	#name : #FSMTransitionsRulesLUTTest,
 	#superclass : #TestCase,
 	#category : #'FSM-Tests-Base'
 }
 
 { #category : #tests }
-FSMTransitionsRulesTest >> testInitializationIsOk [
+FSMTransitionsRulesLUTTest >> testInitializationIsOk [
 
 	| fsmtrans t1 t2 t3 |
-	fsmtrans := FSMTransitionsRules new.
+	fsmtrans := FSMTransitionsRulesLUT new.
 
 	t1 := FSMTransitionRule withTriplet: { '0'. 'a'. 'S1' }.
 	t2 := FSMTransitionRule withTriplet: { 'S1'. 'b'. 'S2' }.
