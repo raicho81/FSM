@@ -1,5 +1,5 @@
 "
-FSMState - represent an non-terminal symbol i.e. an output alphabet symbol. The state has a mnemonic (the symbol code if you wish and a value for future use).
+FSMState - represent an non-terminal symbol i.e. an output alphabet symbol. The state has a mnemonic (the symbol code if you wish).
 "
 Class {
 	#name : #FSMState,

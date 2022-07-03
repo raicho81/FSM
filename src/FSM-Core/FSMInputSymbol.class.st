@@ -1,5 +1,5 @@
 "
-A class to represent and input (terminal symbol) with mnemonic and value, which is really optional for now probably can be used in the future.
+A class to represent and input (terminal symbol) with mnemonic (symbol value).
 "
 Class {
 	#name : #FSMInputSymbol,
