@@ -134,10 +134,10 @@ FSM >> initialize [
 	outputalphabet := FSMOutputAlphabet new.
 	startsymbol := FSMState new. "By convention the non-terminals are all *UPPERCASE* followed by their respective index in the non-terminals set. The start symbol is S0."
 	curstate := startsymbol.
-	endstates := FSMOutputAlphabet new.
+	endstates := FSMEndStates  new.
 	transitions := FSMTransitions new.
 	endStateEvent := WeakMessageSend new.
-	inputSequence := OrderedCollection new.
+	inputSequence := OrderedCollection new
 ]
 
 { #category : #accessing }
