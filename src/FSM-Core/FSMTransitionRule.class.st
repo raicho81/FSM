@@ -1,5 +1,5 @@
 "
-FSMTRansition - a class representing a transition of the form S'->a'->S'' directly inheriting from Association for more convenience.
+FSMTRansitionRule - a class representing a transition rule of the form S'->a'->S'' directly inheriting from Association for more convenience.
 "
 Class {
 	#name : #FSMTransitionRule,
