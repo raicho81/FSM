@@ -32,9 +32,7 @@ FSMTest >> setUp [
 		{ 'S7'. 'a'. 'S8' }.
 		{ 'S7'. 'e'. 'S4' }.
 		{ 'S8'. 'a'. 'S8' }.
-		{ 'S8'. 'b'. 'S8' }.
-
- } do: [ :each | 
+		{ 'S8'. 'b'. 'S8' } } do: [ :each | 
 		fsm transitionsAdd: (FSMTransition withTriplet: each) ].
 	{ 'S8'. 'S5'. 'S9' } do: [ :each | 
 		fsm endstatesAdd: (FSMState withMnemonic: each) ].
@@ -48,7 +46,7 @@ FSMTest >> setUp [
 	I guess the next step is to implement this paper: https://en.wikipedia.org/wiki/Thompson%27s_construction 
 	in order to be able to read Regular Expressions and construct FSMs dynamically from them :)"
 	fsm validateParams.
-	fsm dump "Dump FSM Structures to console (Transcript in Pharo/Smalltalk/Sqeak)"
+	"fsm dump" "Dump FSM Structures to console (Transcript in Pharo/Smalltalk/Sqeak)"
 ]
 
 { #category : #tests }
@@ -62,7 +60,7 @@ FSMTest >> testInitializationIsOk [
 	self assert: fsmempty startstate equals: FSMState new.
 	self assert: fsmempty curstate equals: FSMState new.
 	self assert: fsmempty transitions isEmpty.
-	fsmempty dump
+
 ]
 
 { #category : #tests }
@@ -72,21 +70,18 @@ FSMTest >> testInputSequence1 [
 	({ 'a'. 'b'. 'a'. 'a'. 'a' } collect: [ :eachSymbol | 
 		 FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
 		:eachFSMInputSymbol | fsm evalInpSymb: eachFSMInputSymbol ].
-	fsm dump.
 	self
 		assert: fsm isfinal;
-		assert: fsm isrecognized.
-
+		assert: fsm isrecognized
 ]
 
 { #category : #tests }
 FSMTest >> testInputSequence2 [
 
 	fsm resetFSM.
-	({ 'a'. 'b'. 'a'. 'a'. 'a'. 'c'} collect: [ :eachSymbol | 
+	({ 'a'. 'b'. 'a'. 'a'. 'a'. 'c' } collect: [ :eachSymbol | 
 		 FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
 		:eachFSMInputSymbol | fsm evalInpSymb: eachFSMInputSymbol ].
-	fsm dump.
 	self
 		assert: fsm isfinal;
 		assert: fsm isrecognized not
@@ -96,10 +91,9 @@ FSMTest >> testInputSequence2 [
 FSMTest >> testInputSequence3 [
 
 	fsm resetFSM.
-	({ 'a'. 'b'. 'a'. 'a'. 'a'. 'c'. 'c'. 'f'. 'd' } collect: [ :eachSymbol | 
-		 FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
+	({ 'a'. 'b'. 'a'. 'a'. 'a'. 'c'. 'c'. 'f'. 'd' } collect: [ 
+		 :eachSymbol | FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
 		:eachFSMInputSymbol | fsm evalInpSymb: eachFSMInputSymbol ].
-	fsm dump.
 	self
 		assert: fsm isfinal;
 		assert: fsm isrecognized not
@@ -109,9 +103,9 @@ FSMTest >> testInputSequence3 [
 FSMTest >> testInputSequence4 [
 
 	fsm resetFSM.
-	({ 'a'. 'b'. 'a'. 'a'. 'a'. 'a'. 'a'. 'a'. 'a' } collect: [ :eachSymbol | FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
+	({ 'a'. 'b'. 'a'. 'a'. 'a'. 'a'. 'a'. 'a'. 'a' } collect: [ 
+		 :eachSymbol | FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
 		:eachFSMInputSymbol | fsm evalInpSymb: eachFSMInputSymbol ].
-	fsm dump.
 	self
 		assert: fsm isfinal;
 		assert: fsm isrecognized
@@ -121,10 +115,9 @@ FSMTest >> testInputSequence4 [
 FSMTest >> testInputSequence5 [
 
 	fsm resetFSM.
-	({ 'b'. 'd'. 'e'. 'a'. 'a' } collect: [ 
-		 :eachSymbol | FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
+	({ 'b'. 'd'. 'e'. 'a'. 'a' } collect: [ :eachSymbol | 
+		 FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
 		:eachFSMInputSymbol | fsm evalInpSymb: eachFSMInputSymbol ].
-	fsm dump.
 	self
 		assert: fsm isfinal;
 		assert: fsm isrecognized
@@ -134,11 +127,22 @@ FSMTest >> testInputSequence5 [
 FSMTest >> testInputSequence6 [
 
 	fsm resetFSM.
-	({ 'b'. 'd'. 'e'. 'f'. 'g'. 'b'. 'd'. 'e'. 'a'. 'a' } collect: [ :eachSymbol | 
-		 FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
+	({ 'b'. 'd'. 'e'. 'f'. 'g'. 'b'. 'd'. 'e'. 'a'. 'a' } collect: [ 
+		 :eachSymbol | FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
 		:eachFSMInputSymbol | fsm evalInpSymb: eachFSMInputSymbol ].
-	fsm dump.
 	self
 		assert: fsm isfinal;
 		assert: fsm isrecognized
+]
+
+{ #category : #tests }
+FSMTest >> testInputSequence7 [
+
+	fsm resetFSM.
+	({ 'b'. 'd'. 'e'. 'f'. 'g'. 'b'. 'd'. 'e'. 'a'. 'a'. 'f' } collect: [ 
+		 :eachSymbol | FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
+		:eachFSMInputSymbol | fsm evalInpSymb: eachFSMInputSymbol ].
+	self
+		assert: fsm isfinal;
+		assert: fsm isrecognized not
 ]

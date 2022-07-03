@@ -10,5 +10,7 @@ FSMInputAlphabetTest >> testInitializationIsOk [
 	| fsmiab |
 	fsmiab := FSMInputAlphabet new.
 	self assert: fsmiab isEmpty.
-	fsmiab add: (FSMInputSymbol withMnemonic: 'S0')
+	fsmiab add: (FSMInputSymbol withMnemonic: 'a').
+	self assert: (fsmiab includes: (FSMInputSymbol withMnemonic: 'a')).
+		self assert: (fsmiab includes: (FSMInputSymbol withMnemonic: 'b')) not
 ]
