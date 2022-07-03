@@ -10,11 +10,11 @@ Class {
 { #category : #'instance creation' }
 FSMTransition class >> withState: aState withInputSymbol: aInputSymbol withNewState: aNewState [
 
-	| t |
-	t := self new.
-	t key: aState -> aInputSymbol.
-	t value: aNewState.
-	^ t
+	| instance |
+	instance := self new.
+	instance key: aState -> aInputSymbol.
+	instance value: aNewState.
+	^ instance
 ]
 
 { #category : #'instance creation' }

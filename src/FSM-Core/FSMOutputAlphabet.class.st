@@ -1,5 +1,5 @@
 "
-Class for representing the output alphabet made up from FSMStates (non-terminals).
+Class representing the output alphabet made up from FSMStates (non-terminals).
 "
 Class {
 	#name : #FSMOutputAlphabet,
