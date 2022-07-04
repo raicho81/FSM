@@ -203,13 +203,14 @@ FSMTest >> testMatchRandomInputSequenceWithLength9 [
 
 { #category : #tests }
 FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
-
+	| fsmiab |
+	fsmiab := fsm inputalphabet asOrderedCollection.
 	[ true ] whileTrue: [ 
 		| randinpsequence |
 		randinpsequence := OrderedCollection new.
 		fsm resetFSMState.
 		1 to: aRandomSequenceLength do: [ :x | 
-			randinpsequence add: (fsm inputalphabet asOrderedCollection at:
+			randinpsequence add: ( fsmiab at:
 					 fsm inputalphabet size atRandom) ].
 		randinpsequence do: [ :eachFSMInputSymbol | 
 			fsm evalInpSymb: eachFSMInputSymbol ].
