@@ -160,12 +160,6 @@ FSMTest >> testMatchRandomInputSequenceWithLength10 [
 ]
 
 { #category : #tests }
-FSMTest >> testMatchRandomInputSequenceWithLength11 [
-
-	^ self assert: (self testMatchRandomInputSequenceWithLength: 11)
-]
-
-{ #category : #tests }
 FSMTest >> testMatchRandomInputSequenceWithLength3 [
 
 	^ self assert: (self testMatchRandomInputSequenceWithLength: 3)
