@@ -172,13 +172,13 @@ FSM >> inputalphabet: aSet [
 { #category : #testing }
 FSM >> isfinal [
 
-	^endstates includes: self curstate
+	^ endstates includes: self curstate
 ]
 
 { #category : #testing }
 FSM >> isrecognized [
 
-	^ self isfinal and: self curstate ~= self endstate_unrecognized
+	^ self isfinal and: (self curstate ~= self endstate_unrecognized)
 ]
 
 { #category : #accessing }
