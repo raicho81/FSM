@@ -204,21 +204,19 @@ FSMTest >> testMatchRandomInputSequenceWithLength9 [
 { #category : #tests }
 FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
 
-	| fsmiab randinpsequence fsmisrecognized randinpsequencenotEmpty randinpsequenceInitialize generateRandomInputSymbol getfirst|
+	| fsmiab randinpsequence fsmisrecognized randinpsequenceInitialize generateRandomInputSymbol getfirst|
 	randinpsequence := OrderedCollection new.
-	randinpsequenceInitialize := [ randinpsequence := OrderedCollection new ].
 	fsmiab := fsm inputalphabet asOrderedCollection.
+	randinpsequenceInitialize := [ randinpsequence := OrderedCollection new ].
 	generateRandomInputSymbol := [ fsmiab at: fsmiab size atRandom ].
 	fsmisrecognized := [ fsm isrecognized ].
-	randinpsequencenotEmpty := [ randinpsequence lastIndex > 0 ].
    [ true. ] whileTrue: [ 
 		randinpsequenceInitialize value.
 		getfirst:= [ randinpsequence removeAt: 1 ].		
 		aRandomSequenceLength timesRepeat: [ 
 			randinpsequence add: (generateRandomInputSymbol value) ].
 		fsm resetFSMState.
-		Transcript show: randinpsequencenotEmpty value.
-		[ randinpsequencenotEmpty value ] whileTrue: [
+		[ randinpsequence lastIndex >= 1 ] whileTrue: [
 			fsm evalInpSymb: (getfirst value) ].
 		fsmisrecognized value ifTrue: [
 			Transcript
