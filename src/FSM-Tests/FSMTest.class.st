@@ -204,7 +204,7 @@ FSMTest >> testMatchRandomInputSequenceWithLength9 [
 { #category : #tests }
 FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
 
-	| fsmiab randinpsequence fsmisrecognized randinpsequenceInitialize generateRandomInputSymbol getfirst hasmore randsequencecache stop |
+	| fsmiab randinpsequence fsmisrecognized randinpsequenceInitialize generateRandomInputSymbol getfirst hasmore randsequencecache stop curhash |
 	randinpsequence := OrderedCollection new.
 	fsmiab := fsm inputalphabet asOrderedCollection.
 	randinpsequenceInitialize := [ 
@@ -212,7 +212,7 @@ FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
 	generateRandomInputSymbol := [ fsmiab at: fsmiab size atRandom ].
 	hasmore := [ randinpsequence lastIndex >= 1 ].
 	fsmisrecognized := [ fsm isrecognized ].
-	getfirst := [ randinpsequence removeAt: 1 ].
+	getfirst := [ randinpsequence removeAt: 1 ].	
 	randsequencecache := Set new.
 	[ true ] whileTrue: [ 
 		stop := false.
@@ -220,18 +220,24 @@ FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
 			randinpsequenceInitialize value.
 			aRandomSequenceLength timesRepeat: [ 
 				randinpsequence add: generateRandomInputSymbol value ].
-			(randsequencecache includes: randinpsequence) ifFalse: [ 
-				randsequencecache add: randinpsequence.
+			curhash := randinpsequence hash.
+			(randsequencecache includes: curhash) ifFalse: [ 
+				randsequencecache add: curhash.
 				stop := true ] ].
-		fsm resetFSMState.
+		fsm resetFSMState.		
 		hasmore whileTrue: [ fsm evalInpSymb: getfirst value ].
 		fsmisrecognized value ifTrue: [ 
 			Transcript
+				show: 'randsequencecache size: ';
+				show: randsequencecache size;
+				cr;
 				show: 'randinpsequence: ';
 				show: fsm inputSequence;
-				show: ', isfinal : ';
+				cr;
+				show: 'isfinal : ';
 				show: fsm isfinal;
-				show: ', isrecognized : ';
+				cr;
+				show: 'isrecognized : ';
 				show: fsm isrecognized;
 				cr;
 				cr.

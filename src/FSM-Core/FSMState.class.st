@@ -28,8 +28,7 @@ FSMState >> = aState [
 { #category : #comparing }
 FSMState >> hash [
 
-	"Common pattern in Smalltalk to define hash function."
-	^ self mnemonic hash bitXor: self mnemonic hash
+	^ self mnemonic hash
 ]
 
 { #category : #initialization }
