@@ -204,31 +204,31 @@ FSMTest >> testMatchRandomInputSequenceWithLength9 [
 { #category : #tests }
 FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
 
-	| fsmiab randinpsequence fsmisrecognized randinpsequenceInitialize generateRandomInputSymbol getfirst|
+	| fsmiab randinpsequence fsmisrecognized randinpsequenceInitialize generateRandomInputSymbol getfirst hasmore |
 	randinpsequence := OrderedCollection new.
 	fsmiab := fsm inputalphabet asOrderedCollection.
-	randinpsequenceInitialize := [ randinpsequence := OrderedCollection new ].
+	randinpsequenceInitialize := [ 
+	                             randinpsequence := OrderedCollection new ].
 	generateRandomInputSymbol := [ fsmiab at: fsmiab size atRandom ].
+	hasmore := [ randinpsequence lastIndex >= 1 ].
 	fsmisrecognized := [ fsm isrecognized ].
-   [ true. ] whileTrue: [ 
+	getfirst := [ randinpsequence removeAt: 1 ].	
+	[ true ] whileTrue: [ 
 		randinpsequenceInitialize value.
-		getfirst:= [ randinpsequence removeAt: 1 ].		
 		aRandomSequenceLength timesRepeat: [ 
-			randinpsequence add: (generateRandomInputSymbol value) ].
+			randinpsequence add: generateRandomInputSymbol value ].
 		fsm resetFSMState.
-		[ randinpsequence lastIndex >= 1 ] whileTrue: [
-			fsm evalInpSymb: (getfirst value) ].
-		fsmisrecognized value ifTrue: [
+		hasmore whileTrue: [ fsm evalInpSymb: getfirst value ].
+		fsmisrecognized value ifTrue: [ 
 			Transcript
-			show: 'randinpsequence: ';
-			show: fsm inputSequence ;
-			show: ', isfinal : ';
-			show: fsm isfinal;
-			show: ', isrecognized : ';
-			show: fsm isrecognized;
-			cr;
-			cr.
-			^ true].
-	].
-^ false
+				show: 'randinpsequence: ';
+				show: fsm inputSequence;
+				show: ', isfinal : ';
+				show: fsm isfinal;
+				show: ', isrecognized : ';
+				show: fsm isrecognized;
+				cr;
+				cr.
+			^ true ] ].
+	^ false
 ]
