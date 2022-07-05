@@ -16,7 +16,7 @@ FSMTest >> setUp [
 	super setUp.
 
 	fsm := FSM new.
-	{ 'a'. 'b'. 'c'. 'd'. 'e'. 'f'. 'g' } do: [ :each | 
+	{ 'a'. 'b'. 'd'. 'e'. 'f'. 'g' } do: [ :each | 
 		fsm inputAlphabetAdd: (FSMInputSymbol withMnemonic: each) ].
 	{ 'S1'. 'S2'. 'S3'. 'S4'. 'S5'. 'S6'. 'S7'. 'S8'. 'S9' } do: [ :each | 
 		fsm outputAlphabetAdd: (FSMState withMnemonic: each) ].
