@@ -204,12 +204,14 @@ FSMTest >> testMatchRandomInputSequenceWithLength9 [
 { #category : #tests }
 FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
 
-	| fsmiab randinpsequence fsmisrecognized randinpsequenceInitialize generateRandomInputSymbol getfirst hasmore randsequencecache stop curhash |
+	| fsmiab randinpsequence fsmisrecognized randinpsequenceInitialize generateRandomInputSymbol getfirst hasmore randsequencecache stop curhash rand |
+	rand := Random new.
 	randinpsequence := OrderedCollection new.
 	fsmiab := fsm inputalphabet asOrderedCollection.
 	randinpsequenceInitialize := [ 
 	                             randinpsequence := OrderedCollection new ].
-	generateRandomInputSymbol := [ fsmiab at: fsmiab size atRandom ].
+	generateRandomInputSymbol := [ 
+	                             fsmiab at: (rand nextInteger: fsmiab size) ].
 	hasmore := [ randinpsequence lastIndex >= 1 ].
 	fsmisrecognized := [ fsm isrecognized ].
 	getfirst := [ randinpsequence removeAt: 1 ].
