@@ -248,8 +248,7 @@ FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
 	randinpsequenceInitialize := [ 
 	                             randinpsequence := OrderedCollection new ].
 	generateRandomInputSymbol := [ 
-	                             fsmiab at:
-		                             (rand nextInteger: fsmiab size) ].
+	                             fsmiab atRandom  ].
 	hasmore := [ randinpsequence lastIndex >= 1 ].
 	fsmisrecognized := [ fsm isrecognized ].
 	getfirst := [ randinpsequence removeAt: 1 ].
@@ -281,7 +280,7 @@ FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
 				show: fsm isrecognized;
 				cr;
 				cr.
-			^ true ]].
+			^ true ] ].
 	^ false
 ]
 
