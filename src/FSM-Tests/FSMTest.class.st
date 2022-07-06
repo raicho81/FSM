@@ -88,14 +88,15 @@ FSMTest >> testInputSequence1 [
 
 { #category : #tests }
 FSMTest >> testInputSequence2 [
-| fsm |
-fsm := self fsmInit.
+
+	| fsm |
+	fsm := self fsmInit.
 	fsm resetFSMState.
 	({ 'a'. 'b'. 'a'. 'a'. 'a'. 'c' } collect: [ :eachSymbol | 
 		 FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
 		:eachFSMInputSymbol | fsm evalInpSymb: eachFSMInputSymbol ].
 	self
-		assert: fsm isfinal;
+		assert: fsm isfinal not;
 		assert: fsm isrecognized not
 ]
 
