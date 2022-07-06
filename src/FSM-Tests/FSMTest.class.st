@@ -287,14 +287,13 @@ FSMTest >> testMatchRandomInputSequenceWithLength9 [
 { #category : #tests }
 FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
 
-	| fsmiab fsmisrecognized fsm possible curlength computepossible sequencecache numSequences |
+	| fsmiab fsm possible curlength computepossible sequencecache numSequences |
 	numSequences := 3.
 	aRandomSequenceLength >= 50 ifTrue: [ numSequences := 50 ].
 	sequencecache := Set new.
 	fsm := self fsmInit.
 	possible := OrderedCollection new.
 	fsmiab := fsm inputalphabet asOrderedCollection.
-	fsmisrecognized := [ fsm isrecognized ].
 	[ true ] whileTrue: [ 
 		fsm resetFSMState.
 		curlength := 0.
@@ -309,7 +308,7 @@ FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
 			whileTrue: [ 
 				fsm evalInpSymb: possible atRandom.
 				computepossible value ].
-		(fsmisrecognized value and:
+		(fsm isrecognized value and:
 			 (sequencecache includes: fsm inputSequence hash) not) ifTrue: [ 
 			sequencecache add: fsm inputSequence hash.
 			Transcript
