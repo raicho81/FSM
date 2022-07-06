@@ -325,7 +325,7 @@ FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
 			whileTrue: [ 
 				fsm evalInpSymb: possible atRandom.
 				computepossible value ].
-		(fsm isrecognized value and:
+		((fsm isrecognized value or: fsm isfinal) and:
 			 (sequencecache includes: fsm inputSequence hash) not) ifTrue: [ 
 			sequencecache add: fsm inputSequence hash.
 			Transcript
