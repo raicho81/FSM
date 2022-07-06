@@ -4,17 +4,12 @@ This class contains initialization tests and input sequences of FSMInputSymbol's
 Class {
 	#name : #FSMTest,
 	#superclass : #TestCase,
-	#instVars : [
-		'fsm'
-	],
 	#category : #'FSM-Tests-Base'
 }
 
 { #category : #running }
-FSMTest >> setUp [
-
-	super setUp.
-
+FSMTest >> fsmInit [
+	|fsm|
 	fsm := FSM new.
 	{ 'a'. 'b'. 'c'. 'd'. 'e'. 'f'. 'g' } do: [ :each | 
 		fsm inputAlphabetAdd: (FSMInputSymbol withMnemonic: each) ].
@@ -51,8 +46,9 @@ FSMTest >> setUp [
 	https://en.wikipedia.org/wiki/Regular_language
 	I guess the next step is to implement this paper: https://en.wikipedia.org/wiki/Thompson%27s_construction 
 	in order to be able to read Regular Expressions and construct FSMs dynamically from them :)"
-	fsm validateParams
+	fsm validateParams.
 	"fsm dump" "Dump FSM Structures to console (Transcript in Pharo/Smalltalk/Sqeak)"
+	^ fsm
 ]
 
 { #category : #tests }
@@ -74,7 +70,8 @@ FSMTest >> testInitializationIsOk [
 
 { #category : #tests }
 FSMTest >> testInputSequence1 [
-
+	| fsm |
+	fsm := self fsmInit.
 	fsm resetFSMState.
 	({ 'a'. 'b'. 'a'. 'a'. 'a' } collect: [ :eachSymbol | 
 		 FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
@@ -86,7 +83,8 @@ FSMTest >> testInputSequence1 [
 
 { #category : #tests }
 FSMTest >> testInputSequence2 [
-
+| fsm |
+fsm := self fsmInit.
 	fsm resetFSMState.
 	({ 'a'. 'b'. 'a'. 'a'. 'a'. 'c' } collect: [ :eachSymbol | 
 		 FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
@@ -98,7 +96,8 @@ FSMTest >> testInputSequence2 [
 
 { #category : #tests }
 FSMTest >> testInputSequence3 [
-
+| fsm |
+fsm := self fsmInit.
 	fsm resetFSMState.
 	({ 'a'. 'b'. 'a'. 'a'. 'a'. 'c'. 'c'. 'f'. 'd' } collect: [ 
 		 :eachSymbol | FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
@@ -110,7 +109,8 @@ FSMTest >> testInputSequence3 [
 
 { #category : #tests }
 FSMTest >> testInputSequence4 [
-
+| fsm |
+fsm := self fsmInit.
 	fsm resetFSMState.
 	({ 'a'. 'b'. 'a'. 'a'. 'a'. 'a'. 'a'. 'a'. 'a' } collect: [ 
 		 :eachSymbol | FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
@@ -122,7 +122,8 @@ FSMTest >> testInputSequence4 [
 
 { #category : #tests }
 FSMTest >> testInputSequence5 [
-
+| fsm |
+fsm := self fsmInit.
 	fsm resetFSMState.
 	({ 'b'. 'd'. 'e'. 'a'. 'a' } collect: [ :eachSymbol | 
 		 FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
@@ -134,7 +135,8 @@ FSMTest >> testInputSequence5 [
 
 { #category : #tests }
 FSMTest >> testInputSequence6 [
-
+| fsm |
+fsm := self fsmInit.
 	fsm resetFSMState.
 	({ 'b'. 'd'. 'e'. 'f'. 'g'. 'b'. 'd'. 'e'. 'a'. 'a' } collect: [ 
 		 :eachSymbol | FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
@@ -146,7 +148,8 @@ FSMTest >> testInputSequence6 [
 
 { #category : #tests }
 FSMTest >> testInputSequence7 [
-
+| fsm |
+fsm := self fsmInit.
 	fsm resetFSMState.
 	({ 'b'. 'd'. 'e'. 'f'. 'g'. 'b'. 'd'. 'e'. 'a'. 'a'. 'f' } collect: [ 
 		 :eachSymbol | FSMInputSymbol withMnemonic: eachSymbol ]) do: [ 
@@ -184,6 +187,12 @@ FSMTest >> testMatchRandomInputSequenceWithLength13 [
 FSMTest >> testMatchRandomInputSequenceWithLength14 [
 
 	^ self assert: (self testMatchRandomInputSequenceWithLength: 14)
+]
+
+{ #category : #tests }
+FSMTest >> testMatchRandomInputSequenceWithLength15 [
+
+	^ self assert: (self testMatchRandomInputSequenceWithLength: 15)
 ]
 
 { #category : #tests }
@@ -231,7 +240,8 @@ FSMTest >> testMatchRandomInputSequenceWithLength9 [
 { #category : #tests }
 FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
 
-	| fsmiab randinpsequence fsmisrecognized randinpsequenceInitialize generateRandomInputSymbol getfirst hasmore randsequencecache stop curhash rand |
+	| fsmiab randinpsequence fsmisrecognized randinpsequenceInitialize generateRandomInputSymbol getfirst hasmore randsequencecache stop curhash rand fsm |
+	fsm := self fsmInit.
 	rand := Random new.
 	randinpsequence := OrderedCollection new.
 	fsmiab := fsm inputalphabet asOrderedCollection.
@@ -271,6 +281,27 @@ FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
 				show: fsm isrecognized;
 				cr;
 				cr.
-			^ true ] ].
+			^ true ]].
 	^ false
+]
+
+{ #category : #tests }
+FSMTest >> testParralel: num [
+
+	| mutexes mtxset proc sema m procnum |
+	procnum := 2.
+	sema := Semaphore new.
+	mutexes := OrderedCollection new.
+	1 to: procnum do: [ :_ | 
+		m := Mutex new.
+		mutexes add: m ].
+	mtxset := MutexSet withAll: mutexes.
+	proc := OrderedCollection new.
+	1 to: procnum do: [ :_ | 
+		proc add: [ 
+			(mutexes at: _) critical: [ 
+				self assert: (self testMatchRandomInputSequenceWithLength: num) ] ]
+				forkAndWait ].
+	mtxset critical: [  ].
+	^ true
 ]
