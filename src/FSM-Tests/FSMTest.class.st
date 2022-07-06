@@ -305,7 +305,7 @@ FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
 		ifTrue: [ numSequences := 50 ].
 	(aRandomSequenceLength >= 50000 and: aRandomSequenceLength <= 100000) 
 		ifTrue: [ numSequences := 10 ].
-	aRandomSequenceLength > 100000				ifTrue: [ numSequences := 5 ].
+	aRandomSequenceLength > 100000 ifTrue: [ numSequences := 3 ].
 	sequencecache := Set new.
 	fsm := self fsmInit.
 	possible := OrderedCollection new.
