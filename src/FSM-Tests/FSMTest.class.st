@@ -9,7 +9,8 @@ Class {
 
 { #category : #running }
 FSMTest >> fsmInit [
-	|fsm|
+
+	| fsm |
 	fsm := FSM new.
 	{ 'a'. 'b'. 'c'. 'd'. 'e'. 'f'. 'g' } do: [ :each | 
 		fsm inputAlphabetAdd: (FSMInputSymbol withMnemonic: each) ].
@@ -28,12 +29,16 @@ FSMTest >> fsmInit [
 		{ 'S4'. 'f'. 'S6' }.
 		{ 'S4'. 'a'. 'S3' }.
 		{ 'S5'. 'a'. 'S5' }.
+		{ 'S5'. 'c'. 'S6' }.		
+		{ 'S5'. 'd'. 'S8' }.						
 		{ 'S6'. 'g'. 'S4' }.
 		{ 'S6'. 'g'. 'S4' }.
 		{ 'S7'. 'a'. 'S8' }.
 		{ 'S7'. 'e'. 'S4' }.
 		{ 'S8'. 'a'. 'S8' }.
-		{ 'S8'. 'b'. 'S8' } } do: [ :each | 
+		{ 'S8'. 'b'. 'S8' }.
+		{ 'S8'. 'c'. 'S2' }.
+		{ 'S8'. 'd'. 'S4' }		 } do: [ :each | 
 		fsm transitionsAdd: (FSMTransitionRule withTriplet: each) ].
 	{ 'S8'. 'S5'. 'S9' } do: [ :each | 
 		fsm endstatesAdd: (FSMState withMnemonic: each) ].
@@ -210,7 +215,7 @@ FSMTest >> testMatchRandomInputSequenceWithLength20 [
 { #category : #tests }
 FSMTest >> testMatchRandomInputSequenceWithLength3 [
 
-	^ 1 to: 3 do: [ :_ | self assert: (self testMatchRandomInputSequenceWithLength: 3). ].
+	^ self assert: (self testMatchRandomInputSequenceWithLength: 3)
 ]
 
 { #category : #tests }
@@ -283,7 +288,8 @@ FSMTest >> testMatchRandomInputSequenceWithLength9 [
 FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
 
 	| fsmiab fsmisrecognized fsm possible curlength computepossible sequencecache numSequences |
-	numSequences := 100.
+	numSequences := 3.
+	aRandomSequenceLength >= 50 ifTrue: [ numSequences := 50 ].
 	sequencecache := Set new.
 	fsm := self fsmInit.
 	possible := OrderedCollection new.
