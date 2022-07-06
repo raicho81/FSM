@@ -177,6 +177,12 @@ FSMTest >> testMatchRandomInputSequenceWithLength1000 [
 ]
 
 { #category : #tests }
+FSMTest >> testMatchRandomInputSequenceWithLength100000 [
+
+	^ self assert: (self testMatchRandomInputSequenceWithLength: 100000)
+]
+
+{ #category : #tests }
 FSMTest >> testMatchRandomInputSequenceWithLength11 [
 
 	^ self assert: (self testMatchRandomInputSequenceWithLength: 11)
@@ -261,6 +267,12 @@ FSMTest >> testMatchRandomInputSequenceWithLength50000 [
 ]
 
 { #category : #tests }
+FSMTest >> testMatchRandomInputSequenceWithLength500000 [
+
+	^ self assert: (self testMatchRandomInputSequenceWithLength: 500000)
+]
+
+{ #category : #tests }
 FSMTest >> testMatchRandomInputSequenceWithLength6 [
 
 	^ self assert: (self testMatchRandomInputSequenceWithLength: 6)
@@ -291,7 +303,7 @@ FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
 	numSequences := 3.
 	(aRandomSequenceLength >= 50 and: aRandomSequenceLength < 50000) 
 		ifTrue: [ numSequences := 50 ].
-	(aRandomSequenceLength >= 50000) ifTrue: [ numSequences := 5 ].
+	aRandomSequenceLength >= 50000 ifTrue: [ numSequences := 10 ].
 	sequencecache := Set new.
 	fsm := self fsmInit.
 	possible := OrderedCollection new.
