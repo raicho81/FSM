@@ -8,6 +8,11 @@ Class {
 }
 
 { #category : #'code-critics' }
+ManifestFSMTests class >> ruleCollectSelectNotUsedRuleV1FalsePositive [
+	^ #(#(#(#RGMethodDefinition #(#FSMTest #testMatchRandomInputSequenceWithLength: #false)) #'2022-07-06T10:31:26.481256+03:00') )
+]
+
+{ #category : #'code-critics' }
 ManifestFSMTests class >> ruleLongMethodsRuleV1FalsePositive [
 	^ #(#(#(#RGMethodDefinition #(#FSMTest #testMatchRandomInputSequenceWithLength: #false)) #'2022-07-06T00:52:12.220281+03:00') )
 ]

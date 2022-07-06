@@ -240,36 +240,26 @@ FSMTest >> testMatchRandomInputSequenceWithLength9 [
 { #category : #tests }
 FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
 
-	| fsmiab randinpsequence fsmisrecognized randinpsequenceInitialize generateRandomInputSymbol getfirst hasmore randsequencecache stop curhash rand fsm |
+	| fsmiab fsmisrecognized generateRandomInputSymbol getfirst hasmore fsm possible curlength computepossible |
 	fsm := self fsmInit.
-	rand := Random new.
-	randinpsequence := OrderedCollection new.
+	possible := OrderedCollection new.
 	fsmiab := fsm inputalphabet asOrderedCollection.
-	randinpsequenceInitialize := [ 
-	                             randinpsequence := OrderedCollection new ].
-	generateRandomInputSymbol := [ 
-	                             fsmiab atRandom  ].
-	hasmore := [ randinpsequence lastIndex >= 1 ].
+	generateRandomInputSymbol := [ fsmiab atRandom ].
 	fsmisrecognized := [ fsm isrecognized ].
-	getfirst := [ randinpsequence removeAt: 1 ].
-	randsequencecache := Set new.
 	[ true ] whileTrue: [ 
-		stop := false.
-		[ stop ] whileFalse: [ 
-			randinpsequenceInitialize value.
-			aRandomSequenceLength timesRepeat: [ 
-				randinpsequence add: generateRandomInputSymbol value ].
-			curhash := randinpsequence hash.
-			(randsequencecache includes: curhash) ifFalse: [ 
-				randsequencecache add: curhash.
-				stop := true ] ].
 		fsm resetFSMState.
-		hasmore whileTrue: [ fsm evalInpSymb: getfirst value ].
+		curlength := 0.
+		computepossible := [ 
+		                   fsmiab collect: [ :s | 
+			                   (fsm transitions includes: fsm curstate -> s) 
+				                   ifTrue: [ possible add: s ] ].
+		                   curlength := curlength + 1 ].
+		(possible isNotEmpty and: curlength <= aRandomSequenceLength) 
+			whileTrue: [ 
+				fsm evalInpSymb: possible atRandom.
+				computepossible value ].
 		fsmisrecognized value ifTrue: [ 
 			Transcript
-				show: 'randsequencecache size: ';
-				show: randsequencecache size;
-				cr;
 				show: 'randinpsequence: ';
 				show: fsm inputSequence;
 				cr;
