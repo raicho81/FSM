@@ -166,6 +166,12 @@ FSMTest >> testMatchRandomInputSequenceWithLength10 [
 ]
 
 { #category : #tests }
+FSMTest >> testMatchRandomInputSequenceWithLength1000 [
+
+	^ self assert: (self testMatchRandomInputSequenceWithLength: 1000)
+]
+
+{ #category : #tests }
 FSMTest >> testMatchRandomInputSequenceWithLength11 [
 
 	^ self assert: (self testMatchRandomInputSequenceWithLength: 11)
@@ -196,9 +202,21 @@ FSMTest >> testMatchRandomInputSequenceWithLength15 [
 ]
 
 { #category : #tests }
+FSMTest >> testMatchRandomInputSequenceWithLength20 [
+
+	^ self assert: (self testMatchRandomInputSequenceWithLength: 20)
+]
+
+{ #category : #tests }
 FSMTest >> testMatchRandomInputSequenceWithLength3 [
 
 	^ 1 to: 3 do: [ :_ | self assert: (self testMatchRandomInputSequenceWithLength: 3). ].
+]
+
+{ #category : #tests }
+FSMTest >> testMatchRandomInputSequenceWithLength30 [
+
+	^ self assert: (self testMatchRandomInputSequenceWithLength: 30)
 ]
 
 { #category : #tests }
@@ -208,9 +226,33 @@ FSMTest >> testMatchRandomInputSequenceWithLength4 [
 ]
 
 { #category : #tests }
+FSMTest >> testMatchRandomInputSequenceWithLength40 [
+
+	^ self assert: (self testMatchRandomInputSequenceWithLength: 40)
+]
+
+{ #category : #tests }
 FSMTest >> testMatchRandomInputSequenceWithLength5 [
 
 	^ self assert: (self testMatchRandomInputSequenceWithLength: 5)
+]
+
+{ #category : #tests }
+FSMTest >> testMatchRandomInputSequenceWithLength50 [
+
+	^ self assert: (self testMatchRandomInputSequenceWithLength: 50)
+]
+
+{ #category : #tests }
+FSMTest >> testMatchRandomInputSequenceWithLength500 [
+
+	^ self assert: (self testMatchRandomInputSequenceWithLength: 500)
+]
+
+{ #category : #tests }
+FSMTest >> testMatchRandomInputSequenceWithLength50000 [
+
+	^ self assert: (self testMatchRandomInputSequenceWithLength: 50000)
 ]
 
 { #category : #tests }
@@ -240,11 +282,12 @@ FSMTest >> testMatchRandomInputSequenceWithLength9 [
 { #category : #tests }
 FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
 
-	| fsmiab fsmisrecognized generateRandomInputSymbol fsm possible curlength computepossible |
+	| fsmiab fsmisrecognized fsm possible curlength computepossible sequencecache numSequences |
+	numSequences := 100.
+	sequencecache := Set new.
 	fsm := self fsmInit.
 	possible := OrderedCollection new.
 	fsmiab := fsm inputalphabet asOrderedCollection.
-	generateRandomInputSymbol := [ fsmiab atRandom ].
 	fsmisrecognized := [ fsm isrecognized ].
 	[ true ] whileTrue: [ 
 		fsm resetFSMState.
@@ -252,16 +295,21 @@ FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
 		computepossible := [ 
 		                   possible := OrderedCollection new.
 		                   fsmiab collect: [ :s | 
-			                   (fsm transitions includes: fsm curstate -> s) 
-				                   ifTrue: [ possible add: s ] ].
+			                   (fsm transitions keys includes:
+				                    fsm curstate -> s) ifTrue: [ possible add: s ] ].
 		                   curlength := curlength + 1 ].
 		computepossible value.
-		(possible isNotEmpty and: curlength <= aRandomSequenceLength) 
+		[ possible isNotEmpty and: curlength <= aRandomSequenceLength ] 
 			whileTrue: [ 
 				fsm evalInpSymb: possible atRandom.
 				computepossible value ].
-		fsmisrecognized value ifTrue: [ 
+		(fsmisrecognized value and:
+			 (sequencecache includes: fsm inputSequence hash) not) ifTrue: [ 
+			sequencecache add: fsm inputSequence hash.
 			Transcript
+				show: 'sequencecache size: ';
+				show: sequencecache size;
+				cr;
 				show: 'randinpsequence: ';
 				show: fsm inputSequence;
 				cr;
@@ -272,7 +320,7 @@ FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
 				show: fsm isrecognized;
 				cr;
 				cr.
-			^ true ] ].
+			sequencecache size >= numSequences ifTrue: [ ^ true ] ] ].
 	^ false
 ]
 
