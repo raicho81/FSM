@@ -240,7 +240,7 @@ FSMTest >> testMatchRandomInputSequenceWithLength9 [
 { #category : #tests }
 FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
 
-	| fsmiab fsmisrecognized generateRandomInputSymbol getfirst hasmore fsm possible curlength computepossible |
+	| fsmiab fsmisrecognized generateRandomInputSymbol fsm possible curlength computepossible |
 	fsm := self fsmInit.
 	possible := OrderedCollection new.
 	fsmiab := fsm inputalphabet asOrderedCollection.
@@ -250,10 +250,12 @@ FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
 		fsm resetFSMState.
 		curlength := 0.
 		computepossible := [ 
+		                   possible := OrderedCollection new.
 		                   fsmiab collect: [ :s | 
 			                   (fsm transitions includes: fsm curstate -> s) 
 				                   ifTrue: [ possible add: s ] ].
 		                   curlength := curlength + 1 ].
+		computepossible value.
 		(possible isNotEmpty and: curlength <= aRandomSequenceLength) 
 			whileTrue: [ 
 				fsm evalInpSymb: possible atRandom.
