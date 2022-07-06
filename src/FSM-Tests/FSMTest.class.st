@@ -16,7 +16,7 @@ FSMTest >> setUp [
 	super setUp.
 
 	fsm := FSM new.
-	{ 'a'. 'b'. 'd'. 'e'. 'f'. 'g' } do: [ :each | 
+	{ 'a'. 'b'. 'c'. 'd'. 'e'. 'f'. 'g' } do: [ :each | 
 		fsm inputAlphabetAdd: (FSMInputSymbol withMnemonic: each) ].
 	{ 'S1'. 'S2'. 'S3'. 'S4'. 'S5'. 'S6'. 'S7'. 'S8'. 'S9' } do: [ :each | 
 		fsm outputAlphabetAdd: (FSMState withMnemonic: each) ].
@@ -24,7 +24,9 @@ FSMTest >> setUp [
 		{ 'S0'. 'a'. 'S1' }.
 		{ 'S0'. 'b'. 'S2' }.
 		{ 'S1'. 'b'. 'S3' }.
+		{ 'S1'. 'c'. 'S4' }.
 		{ 'S2'. 'd'. 'S7' }.
+		{ 'S2'. 'c'. 'S6' }.
 		{ 'S3'. 'a'. 'S5' }.
 		{ 'S4'. 'b'. 'S2' }.
 		{ 'S4'. 'f'. 'S6' }.
@@ -160,6 +162,30 @@ FSMTest >> testMatchRandomInputSequenceWithLength10 [
 ]
 
 { #category : #tests }
+FSMTest >> testMatchRandomInputSequenceWithLength11 [
+
+	^ self assert: (self testMatchRandomInputSequenceWithLength: 11)
+]
+
+{ #category : #tests }
+FSMTest >> testMatchRandomInputSequenceWithLength12 [
+
+	^ self assert: (self testMatchRandomInputSequenceWithLength: 12)
+]
+
+{ #category : #tests }
+FSMTest >> testMatchRandomInputSequenceWithLength13 [
+
+	^ self assert: (self testMatchRandomInputSequenceWithLength: 13)
+]
+
+{ #category : #tests }
+FSMTest >> testMatchRandomInputSequenceWithLength14 [
+
+	^ self assert: (self testMatchRandomInputSequenceWithLength: 14)
+]
+
+{ #category : #tests }
 FSMTest >> testMatchRandomInputSequenceWithLength3 [
 
 	^ 1 to: 3 do: [ :_ | self assert: (self testMatchRandomInputSequenceWithLength: 3). ].
@@ -211,7 +237,8 @@ FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
 	randinpsequenceInitialize := [ 
 	                             randinpsequence := OrderedCollection new ].
 	generateRandomInputSymbol := [ 
-	                             fsmiab at: (rand nextInteger: fsmiab size) ].
+	                             fsmiab at:
+		                             (rand nextInteger: fsmiab size) ].
 	hasmore := [ randinpsequence lastIndex >= 1 ].
 	fsmisrecognized := [ fsm isrecognized ].
 	getfirst := [ randinpsequence removeAt: 1 ].
