@@ -289,7 +289,9 @@ FSMTest >> testMatchRandomInputSequenceWithLength: aRandomSequenceLength [
 
 	| fsmiab fsm possible curlength computepossible sequencecache numSequences |
 	numSequences := 3.
-	aRandomSequenceLength >= 50 ifTrue: [ numSequences := 50 ].
+	(aRandomSequenceLength >= 50 and: aRandomSequenceLength < 50000) 
+		ifTrue: [ numSequences := 50 ].
+	(aRandomSequenceLength >= 50000) ifTrue: [ numSequences := 5 ].
 	sequencecache := Set new.
 	fsm := self fsmInit.
 	possible := OrderedCollection new.
