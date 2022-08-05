@@ -4,7 +4,7 @@ Finally Hooray I've made it - an almost complete Smalltalk Project :P If I must 
 
 ## Installation
   <pre>Metacello new:
-        baseline: 'FSM-Baseline';
+        baseline: 'BaselineOfFSM';
         repository: 'https://github.com/raicho81/Pharo-FSM/src'</pre>
 
 Let the Source and The Force be With You :D
