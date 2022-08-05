@@ -4,7 +4,7 @@ Implementation Points
 Class {
 	#name : #BaselineOfFSM,
 	#superclass : #BaselineOf,
-	#category : #'BaselineOfPharo-FSM'
+	#category : #BaselineOfFSM
 }
 
 { #category : #baselines }
