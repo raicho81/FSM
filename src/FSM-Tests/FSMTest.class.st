@@ -43,9 +43,9 @@ FSMTest >> fsmInit [
 	{ 'S8'. 'S5'. 'S9' } do: [ :each | 
 		fsm endstatesAdd: (FSMState withMnemonic: each) ].
 	fsm endstate_unrecognized: (FSMState withMnemonic: 'S9').
-	"r: Add a nonexistent state S9 as an intercept state to, which will point all states from,
-	which there are no possible transitions from the current state to any other defined by the Regular Grammar G of the FSM
-	This is the canonical way to make any FSM a fully determined DFSM in this case when we raech S9 the FSM doesn't recognize nothing
+	"r: Add a nonexistent or more precisely unreachable by the FSM Regular Grammar Rules state S9 as an intercept state to, which will point all states from,
+	for, which there are no possible transitions from the current state to any other state defined by the Regular Grammar G of the FSM.
+	This is the canonical way to make any FSM a Fully Determined FSM. In the case when we raech S9 the FSM doesn't recognize nothing
 	but is in final state and can stop and we can restart it to continue matching.
    https://en.wikipedia.org/wiki/Regular_grammar
 	https://en.wikipedia.org/wiki/Regular_language
