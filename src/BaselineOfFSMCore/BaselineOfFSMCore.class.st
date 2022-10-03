@@ -1,7 +1,7 @@
 Class {
 	#name : #BaselineOfFSMCore,
 	#superclass : #BaselineOf,
-	#category : #BaselineOfFSMCore
+	#category : 'BaselineOfFSMCore'
 }
 
 { #category : #baselines }
