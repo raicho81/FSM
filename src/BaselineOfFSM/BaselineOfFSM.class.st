@@ -1,11 +1,11 @@
 Class {
-	#name : #BaselineOfFSMCore,
+	#name : #BaselineOfFSM,
 	#superclass : #BaselineOf,
-	#category : 'BaselineOfFSMCore'
+	#category : #BaselineOfFSM
 }
 
-{ #category : #baselines }
-BaselineOfFSMCore >> baseline: spec [
+{ #category : #baseline }
+BaselineOfFSM >> baseline: spec [
 	<baseline>
 	
 	spec for: #pharo do: [ 
