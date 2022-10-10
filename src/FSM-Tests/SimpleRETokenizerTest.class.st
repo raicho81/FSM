@@ -21,7 +21,7 @@ SimpleRETokenizerTest >> testInitializationIsOk [
 	self assert: inst notNil.
 	self assert: inst input_alphabet notNil.
 	self assert: inst input_alphabet equals: FSMInputAlphabet new.
-	self assert: inst re_string equals: nil.
+	self assert: inst re_string equals: ''.
 ]
 
 { #category : #tests }
