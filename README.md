@@ -4,7 +4,7 @@ Finally Hooray I've made it - an almost complete Smalltalk Project :P If I must 
 
 ## Installation
   <pre>Metacello new
-        baseline: 'FSMCore';
+        baseline: 'FSM';
         repository: 'github://raicho81/FSM:main/src';
         load.</pre>
 
