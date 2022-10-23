@@ -27,8 +27,18 @@ SimpleRETokenizerTest >> testInitializationIsOk [
 { #category : #tests }
 SimpleRETokenizerTest >> testWorking [
 
-	| inst tokens |
+	| inst tokens test_tokens |
+	test_tokens :=
+	OrderedCollection withAll: { 
+		FSMInputSymbol withMnemonic: 'a'.
+		FSMInputSymbol withMnemonic: 'b'.
+		FSMInputSymbol withMnemonic: 'c'.
+		FSMInputSymbol withMnemonic: '*'.
+		FSMInputSymbol withMnemonic: 'd'.
+		FSMInputSymbol withMnemonic: '+'.
+	}.
 	inst := SimpleRETokenizer with: 'abc*d+'.
 	tokens := inst tokenizeRun.
-	self assert: (tokens size) equals: 6
+	self assert: (tokens size) equals: 6.
+	self assert: test_tokens equals: tokens.
 ]
